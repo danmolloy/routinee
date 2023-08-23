@@ -29,6 +29,7 @@ const monthIndex = yearArr[0].date.slice(5, 7)
 export default function Activity() {
   const { activity } = useLocalSearchParams()
   const [data, setData] = useState<ActivityType|null>(null)
+  const [calendarType, setCalendarType] = useState<string>("month")
   const [selected, setSelected] = useState(DateTime.now().toFormat('yyyy-MM-dd'));
   const [selectedSquare, setSelectedSquare] = useState<string>(DateTime.now().toFormat('yyyy-MM-dd'))
   const [hashtagFilters, setHashtagFilters] = useState<string>("")
@@ -156,12 +157,24 @@ export default function Activity() {
       ))}
       </View>
       </View>}
-      
       </View>
-      <View style={styles.monthContainer}>
-        <Text style={{fontSize: 20, fontFamily: "Raleway_700Bold", paddingVertical: 8}}>
+      <View style={styles.tabsView}>
+        <TouchableOpacity style={calendarType === "month" ? styles.selectedTabButton: styles.tabButton} onPress={() => setCalendarType("month")}>
+          <Text>
+            Month
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity  style={calendarType === "year" ? styles.selectedTabButton: styles.tabButton} onPress={() => setCalendarType("year")}>
+          <Text>
+            Year
+          </Text>
+        </TouchableOpacity>
+      </View>
+      {calendarType === "month" 
+      ? <View style={styles.monthContainer}>
+        {/* <Text style={{fontSize: 20, fontFamily: "Raleway_700Bold", paddingVertical: 8}}>
           Month Overview 
-        </Text>
+        </Text> */}
         {hashtagFilters !== "" 
         && <Text style={{fontSize: 20, fontFamily: "Raleway_700Bold", paddingVertical: 4, color: "rgb(59 130 246)"}}>
           #{hashtagFilters}
@@ -172,10 +185,10 @@ export default function Activity() {
         <CalendarPicker selected={selected} setSelected={(e) => setSelected(e)} instancesArr={filteredInstances} /> 
         <DayOverview hashtagFilters={hashtagFilters} selectedDate={selected} instances={filteredInstances.filter(i => String(i.date) === selected)}/>     
       </View>
-       <View style={styles.yearContainer}>
-        <Text style={{fontSize: 20, fontFamily: "Raleway_700Bold", paddingVertical: 8, }}>
+       :<View style={styles.yearContainer}>
+        {/* <Text style={{fontSize: 20, fontFamily: "Raleway_700Bold", paddingVertical: 8, }}>
           Year Overview
-        </Text>
+        </Text> */}
         {hashtagFilters !== "" 
         && <Text style={{fontSize: 20, fontFamily: "Raleway_700Bold", paddingVertical: 4, color: "rgb(59 130 246)"}}>
           #{hashtagFilters}
@@ -211,7 +224,7 @@ export default function Activity() {
       </View>
       </InvertibleScrollView>
   <DayOverview hashtagFilters={hashtagFilters} selectedDate={selectedSquare} instances={filteredInstances.filter(i => String(i.date) === selectedSquare)}/>     
-      </View>
+      </View>}
       <View>
         <Link href={{
           pathname: "/edit/[id]",
@@ -248,7 +261,27 @@ const gridSquare = {
 
 }
 
+
+
 const styles = StyleSheet.create({
+  tabsView: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+  },
+  tabButton: {
+    width: "30%",
+    alignItems: "center",
+    paddingVertical: 8,
+  },
+  selectedTabButton: {
+    width: "30%",
+    borderBottomWidth: 3,
+    alignItems: "center",
+    paddingVertical: 8,
+    borderBottomColor: "rgb(96 165 250)",
+  },
 
   monthArr: {
     flex: 1,

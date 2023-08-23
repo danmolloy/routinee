@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   header: {
-    height: 80,
+    height: 40,
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
