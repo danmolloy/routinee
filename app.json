@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "habit",
+    "name": "Routinee",
     "slug": "habit",
-    "version": "1.0.0",
+    "version": "2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -15,16 +15,32 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.danmolloy.habit",
+      "runtimeVersion": "2",
+      "buildNumber": "2"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "runtimeVersion": {
+        "policy": "appVersion"
       }
     },
+    "scheme": "myapp",
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "fa63e401-93c5-4767-9dc3-b63f57a74e4a"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/fa63e401-93c5-4767-9dc3-b63f57a74e4a"
     }
   }
 }
