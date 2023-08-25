@@ -121,7 +121,7 @@ export default function App() {
       && <DataForm setShowForm={(bool) => setShowForm(bool)} getData={() => getData()} setAddData={data => setAddData(data)} data={data} activityId={addData.activity} instanceId={addData.instance} />}
       </View>
       ))
-      : <Text>No activities</Text>}
+      : <Text>No activities. Click the help button (bottom right corner) to get started.</Text>}
       <StatusBar style="auto" />
     </View>
     </ScrollView>

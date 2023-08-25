@@ -2,10 +2,11 @@ import { StyleSheet, Text, View, TextInput, Button, Keyboard } from "react-nativ
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useState, useEffect } from 'react'
 import uuid from 'react-native-uuid'
-import { Formik } from 'formik'
+import { Field, Formik } from 'formik'
 import { router } from "expo-router";
 import { ActivityType } from ".";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import CustomData from "../components/CustomData";
 
 export default function CreateActivity() {
   const [name, setName] = useState("")
@@ -91,6 +92,7 @@ export default function CreateActivity() {
             maxLength={150}
          />
          </View>
+         
          <TouchableOpacity style={styles.submitButton} onPress={() => handleSubmit()}>
           <Text style={{fontFamily: "Raleway_500Medium", color: "rgb(59 130 246)"}}>
             Create
@@ -99,6 +101,7 @@ export default function CreateActivity() {
        </View>
      )}
       </Formik>
+      <CustomData />
     </View>
   )
 }

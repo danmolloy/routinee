@@ -225,7 +225,7 @@ export default function Activity() {
       </InvertibleScrollView>
   <DayOverview hashtagFilters={hashtagFilters} selectedDate={selectedSquare} instances={filteredInstances.filter(i => String(i.date) === selectedSquare)}/>     
       </View>}
-      <View>
+      <View style={styles.buttonsContainer}>
         <Link href={{
           pathname: "/edit/[id]",
           params: { id: data.id }
@@ -384,6 +384,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 2,
+  },
+  buttonsContainer: {
+    marginVertical: 12,
+    flex: 1, 
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
 

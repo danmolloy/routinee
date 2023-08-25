@@ -18,7 +18,6 @@ export default function Layout() {
         style={styles.link}
         activeOpacity={0.6}
         underlayColor="black"
-        
         >
           <Feather size={32} name="home" color={"rgb(59 130 246)"} />
         </TouchableHighlight>
@@ -34,7 +33,16 @@ export default function Layout() {
           <Feather size={32} name="plus" color={"rgb(59 130 246)"} />
           </TouchableHighlight>
         </Link>
-        
+        <Link href="/help" asChild>
+          <TouchableHighlight 
+          style={styles.link}
+          activeOpacity={0.6}
+          underlayColor="black"
+          
+          >
+            <Feather size={32} name="help-circle" color={"rgb(59 130 246)"} />
+          </TouchableHighlight>
+        </Link>
       </View>
     </View>
   );
@@ -43,6 +51,9 @@ export default function Layout() {
 const styles = StyleSheet.create({
   container: {
     height: "100%",
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "space-between"
   },
   header: {
     height: 40,
@@ -58,6 +69,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
+    backgroundColor: "rgb(248 250 252)",
     
   },
   link: {
@@ -68,7 +80,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
+    marginVertical: 10,
     padding: 12,
     backgroundColor: "white",
     margin: 4,
