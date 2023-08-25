@@ -8,6 +8,8 @@ import { ActivityType } from ".";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import CustomData from "../components/CustomData";
 
+const colorArr = ["rgb(74 222 128)", "rgb(168 85 247)", "rgb(244 63 94)", "rgb(94 234 212)", "rgb(34 211 238)", "rgb(99 102 241)", "rgb(244 114 182)", "rgb(52 211 153)", "rgb(251 191 36)"]
+
 export default function CreateActivity() {
   const [name, setName] = useState("")
   const [blurb, setBlurb] = useState("")
@@ -56,7 +58,8 @@ export default function CreateActivity() {
            name: '',
            blurb: '',
            instances: [],
-           id: String(uuid.v1())
+           id: String(uuid.v1()),
+           color: colorArr[Math.floor(Math.random() * colorArr.length)] 
           }}
         onSubmit={values => handleCreate(values)}
       >
@@ -65,23 +68,25 @@ export default function CreateActivity() {
         <View           
           style={styles.inputContainer}
         >
-         <Text >
+         <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 16}}>
           Activity
          </Text>
          <TextInput
-           style={styles.textInput}
-           onChangeText={handleChange('name')}
-           onBlur={handleBlur('name')}
-           value={values.name}
+          placeholder="Exercise"
+          style={styles.textInput}
+          onChangeText={handleChange('name')}
+          onBlur={handleBlur('name')}
+          value={values.name}
          />
          </View>
          <View 
           style={styles.inputContainer}
          >
-         <Text>
+         <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 16}}>
           Blurb
          </Text>
          <TextInput
+            placeholder="Three times a week. Remember what you're aiming for!"
             style={styles.blurbInput}
            onChangeText={handleChange('blurb')}
            onBlur={handleBlur('blurb')}
@@ -101,7 +106,7 @@ export default function CreateActivity() {
        </View>
      )}
       </Formik>
-      <CustomData />
+      {/* <CustomData /> */}
     </View>
   )
 }

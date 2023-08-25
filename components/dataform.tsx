@@ -101,9 +101,9 @@ export default function DataForm(props: DataFormProps) {
       >
       {({ handleChange, handleBlur, handleSubmit, values }) => (
        <View style={styles.formikContainer} >
-        <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 18, alignSelf: "flex-start", marginVertical: 6}}>
+        {/* <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 18, alignSelf: "flex-start", marginVertical: 6}}>
           Add Data
-        </Text>
+        </Text> */}
         <View 
           style={styles.inputContainer}
          >
@@ -137,24 +137,26 @@ export default function DataForm(props: DataFormProps) {
           Notes
          </Text>
          <TextInput
+          placeholder="Really glad I did it! Feeling great."
             style={styles.textInput}
            onChangeText={handleChange('notes')}
            onBlur={() => {handleBlur('notes'); Keyboard.dismiss()}}
            value={values.notes}
            editable
-        multiline
-        numberOfLines={4}
-        maxLength={40}
+          multiline
+          numberOfLines={4}
+          maxLength={40}
          />
          </View>
          
         <View 
           style={styles.inputContainer}
          >
-         <Text>
+         <Text style={{color: "white"}}>
           Hastags
          </Text>
          <TextInput
+          placeholder="fun exciting keepOnPushing"
           style={styles.textInput}
           onChangeText={handleChange('hashtags')}
           onBlur={handleBlur('hashtags')}
@@ -195,7 +197,8 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 5,
     marginVertical: 8,
-    height: 32
+    height: 32,
+    backgroundColor: "white"
   },
   inputContainer: {
     width: 250,
@@ -220,15 +223,15 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 2,
-
+    backgroundColor: "white",
   },
   inputLabel: {
     fontFamily: "Raleway_500Medium",
-    fontSize: 16
+    fontSize: 16,
+    color: "white"
   },
   datePicker: {
     alignSelf: "flex-start",
     marginVertical: 8,
-
   }
 })

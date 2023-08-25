@@ -9,8 +9,8 @@ const helpArr = [
     info: [
       "To get started, click the plus button to create a new activity to track.",
       "As well as naming your activity, you can give it a small blurb. This could be a small encouraging phrase or a reminder of what you're aiming for.",
-      "Additionally, you can add further data sections. This might be to log how many reps you did or for how long.",
-      "Click Create once you're happy with your activity info.",
+/*       "Additionally, you can add further data sections. This might be to log how many reps you did or for how long.",
+ */      "Click Create once you're happy with your activity info.",
     ]
   },
   {
@@ -62,10 +62,10 @@ export default function HelpCenter() {
       </View>
       <View style={styles.btnContainer}>
         <TouchableOpacity onPress={() => handlePress("-")} style={styles.navBtn}>
-          <Feather size={32} name="chevron-left" />
+          <Feather size={32} name="chevron-left" color={"rgb(59 130 246)"}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handlePress("+")} style={styles.navBtn}>
-          <Feather size={32} name="chevron-right" />
+          <Feather size={32} name="chevron-right" color={"rgb(59 130 246)"} />
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -95,12 +95,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly"
   },
   navBtn: {
-    borderWidth: 1,
+    borderWidth: 0.5,
     width: 60, 
     height: 60,
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
+    shadowColor: 'rgb(30 64 175)',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
   }
 })

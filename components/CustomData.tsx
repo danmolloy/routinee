@@ -31,7 +31,6 @@ export default function CustomData() {
             </Text>
           </TouchableOpacity>
          </View>
-          
          </View>
   )
 }

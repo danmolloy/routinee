@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-    backgroundColor: "rgb(248 250 252)",
+    backgroundColor: "rgb(239 246 255)",
     
   },
   link: {

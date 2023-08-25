@@ -136,7 +136,7 @@ export default function Activity() {
     <ScrollView style={styles.scrollContainer}>
       <View style={styles.container}>
       <View style={styles.header}>
-      <Text style={{fontSize: 28, fontFamily: "Raleway_700Bold", color: "black"}}>
+      <Text style={{fontSize: 28, fontFamily: "Raleway_700Bold", color: data.color}}>
         {data.name}
       </Text>
       <Text style={{margin: 12, color: "black", fontFamily: "Raleway_500Medium", fontSize: 18}}>

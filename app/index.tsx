@@ -24,6 +24,7 @@ export type ActivityType = {
   blurb: string
   instances: ActivityInstance[]
   id: string
+  color: string
 }
 
 export default function App() {
@@ -85,22 +86,22 @@ export default function App() {
     <View style={styles.container} >
       {data.length > 0 
       ? data.map(i => (
-        <View key={i.id} style={i.id === addData?.activity && showForm === true ? styles.activityLarge : styles.activitySimple}>
-        <View style={styles.activityHeader}>
+        <View key={i.id} style={i.id === addData?.activity && showForm === true ? {...styles.activityLarge, backgroundColor: i.color} : {...styles.activitySimple, backgroundColor: i.color}}>
+        <View style={{...styles.activityHeader, backgroundColor: i.color}}>
           <View>
-        <Text style={{fontSize: 20, color: "black", fontFamily:"Raleway_700Bold"}}>
+        <Text style={{fontSize: 20, color: "white", fontFamily:"Raleway_700Bold"}}>
           {i.name}
         </Text>
         {i.instances.length === 0 
-        ? <Text style={{fontSize: 14, color: "rgb(100 116 139)", fontFamily:"Raleway_500Medium"}}>No instances logged</Text>
+        ? <Text style={{fontSize: 14, color: "white", fontFamily:"Raleway_500Medium"}}>No instances logged</Text>
         : DateTime.fromISO(i.instances[i.instances.length - 1].date).hasSame(DateTime.now(), "day")
-        ? <Text style={{fontSize: 14, color: "rgb(100 116 139)", fontFamily:"Raleway_500Medium"}}>Last instance: Today</Text>
-        : <Text style={{fontSize: 14, color: "rgb(100 116 139)", fontFamily:"Raleway_500Medium"}}>Last instance: {String(DateTime.fromISO(i.instances[i.instances.length - 1].date).toFormat('dd LLL yyyy'))}</Text>}
+        ? <Text style={{fontSize: 14, color: "white", fontFamily:"Raleway_500Medium"}}>Last instance: Today</Text>
+        : <Text style={{fontSize: 14, color: "white", fontFamily:"Raleway_500Medium"}}>Last instance: {String(DateTime.fromISO(i.instances[i.instances.length - 1].date).toFormat('dd LLL yyyy'))}</Text>}
         </View>
         <View style={styles.buttonsContainer}>
           {i.id === addData?.activity
           && <TouchableOpacity style={styles.activityButton} onPress={() => setShowForm(!showForm)} >
-            <Feather size={20} name='edit' color={"rgb(59 130 246)"} />
+            <Feather size={20} name='edit' color={i.color} />
           </TouchableOpacity>}
         <Link 
         asChild
@@ -109,11 +110,11 @@ export default function App() {
           params: { activity: i.name.toLowerCase() }
       }}>
         <TouchableOpacity style={styles.activityButton} onPress={() => {}} >
-        <Feather size={20} name="activity" color={"rgb(59 130 246)"} />
+        <Feather size={20} name="activity" color={i.color} />
         </TouchableOpacity>
       </Link>
       <TouchableOpacity style={styles.activityButton} onPress={() => {handleClick(i.id)}} >
-        <Feather size={20} name='check' color={"rgb(59 130 246)"} />
+        <Feather size={20} name='check' color={i.color} />
       </TouchableOpacity>
       </View>
       </View>
@@ -121,7 +122,7 @@ export default function App() {
       && <DataForm setShowForm={(bool) => setShowForm(bool)} getData={() => getData()} setAddData={data => setAddData(data)} data={data} activityId={addData.activity} instanceId={addData.instance} />}
       </View>
       ))
-      : <Text>No activities. Click the help button (bottom right corner) to get started.</Text>}
+      : <Text style={styles.blankText}>Click the help button (bottom right corner) to get started.</Text>}
       <StatusBar style="auto" />
     </View>
     </ScrollView>
@@ -149,7 +150,6 @@ const styles = StyleSheet.create({
     height: 60,
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "white",
   },
   activitySimple: {
     ...activity,
@@ -205,5 +205,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 2,
+  },
+  blankText: {
+    fontFamily: "Raleway_600SemiBold",
+    fontSize: 16,
+    textAlign: "center",
+    padding: 24,
   }
 });
