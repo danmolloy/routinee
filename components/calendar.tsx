@@ -10,10 +10,11 @@ export type CalendarPickerProps = {
   }[]
   selected: string
   setSelected: (arg: string) => void
+  activityColor: string
 }
 
 export default function CalendarPicker(props: CalendarPickerProps) {
-  const { instancesArr, selected, setSelected } = props;
+  const { instancesArr, selected, setSelected, activityColor } = props;
   //const [selected, setSelected] = useState(DateTime.now().toFormat('yyyy-MM-dd'));
 
   const markedDatesObj = (instances: {
@@ -40,7 +41,7 @@ export default function CalendarPicker(props: CalendarPickerProps) {
           selected: true, 
           marked: instancesArr.find(i => String(i.date) === selected) ? true : false,
           disableTouchEvent: true, 
-          selectedColor: 'rgb(59 130 246)',
+          selectedColor: activityColor,
           
         },
       }}

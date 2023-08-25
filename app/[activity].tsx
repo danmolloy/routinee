@@ -150,7 +150,7 @@ export default function Activity() {
         <View style={{flex: 1, flexDirection: "row", flexWrap: "wrap"}}>
         {getHashtags(data.instances).map(i => (
         <TouchableOpacity style={{alignSelf: "flex-start"}} key={i} onPress={() => handleHashtagPress(i)}>
-          <Text style={hashtagFilters === i ? styles.selectedFilter : {margin: 12, color: "rgb(59 130 246)", fontFamily: "Raleway_500Medium", fontSize: 16}}>
+          <Text style={hashtagFilters === i ? {...styles.selectedFilter, backgroundColor: data.color} : {margin: 12, color: data.color, fontFamily: "Raleway_500Medium", fontSize: 16}}>
             #{i}
           </Text>
         </TouchableOpacity>
@@ -159,12 +159,12 @@ export default function Activity() {
       </View>}
       </View>
       <View style={styles.tabsView}>
-        <TouchableOpacity style={calendarType === "month" ? styles.selectedTabButton: styles.tabButton} onPress={() => setCalendarType("month")}>
+        <TouchableOpacity style={calendarType === "month" ? {...styles.selectedTabButton, borderBottomColor: data.color}: styles.tabButton} onPress={() => setCalendarType("month")}>
           <Text>
             Month
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity  style={calendarType === "year" ? styles.selectedTabButton: styles.tabButton} onPress={() => setCalendarType("year")}>
+        <TouchableOpacity  style={calendarType === "year" ? {...styles.selectedTabButton, borderBottomColor: data.color}: styles.tabButton} onPress={() => setCalendarType("year")}>
           <Text>
             Year
           </Text>
@@ -176,13 +176,13 @@ export default function Activity() {
           Month Overview 
         </Text> */}
         {hashtagFilters !== "" 
-        && <Text style={{fontSize: 20, fontFamily: "Raleway_700Bold", paddingVertical: 4, color: "rgb(59 130 246)"}}>
+        && <Text style={{fontSize: 20, fontFamily: "Raleway_700Bold", paddingVertical: 4, color: data.color}}>
           #{hashtagFilters}
         </Text>}
         <Text style={{marginLeft: 12,fontFamily: "Raleway_400Regular", fontSize: 16, paddingVertical: 4, color: "black"}}>
           28 day count: {countPeriodInstances(filteredInstances, 28)}
         </Text>
-        <CalendarPicker selected={selected} setSelected={(e) => setSelected(e)} instancesArr={filteredInstances} /> 
+        <CalendarPicker selected={selected} setSelected={(e) => setSelected(e)} instancesArr={filteredInstances} activityColor={data.color}/> 
         <DayOverview hashtagFilters={hashtagFilters} selectedDate={selected} instances={filteredInstances.filter(i => String(i.date) === selected)}/>     
       </View>
        :<View style={styles.yearContainer}>
@@ -190,7 +190,7 @@ export default function Activity() {
           Year Overview
         </Text> */}
         {hashtagFilters !== "" 
-        && <Text style={{fontSize: 20, fontFamily: "Raleway_700Bold", paddingVertical: 4, color: "rgb(59 130 246)"}}>
+        && <Text style={{fontSize: 20, fontFamily: "Raleway_700Bold", paddingVertical: 4, color: data.color}}>
           #{hashtagFilters}
         </Text>}
         <Text style={{marginLeft: 12,fontFamily: "Raleway_400Regular", fontSize: 16, paddingVertical: 4, color: "black"}}>
@@ -211,11 +211,11 @@ export default function Activity() {
         <TouchableOpacity onPress={() => setSelectedSquare(i.date)} key={i.date} 
           style={
             i.date === selectedSquare && filteredInstances.find(j => j.date === i.date)
-            ? styles.gridSquareBlueSelected
+            ? {...styles.gridSquareBlueSelected, backgroundColor: data.color}
             : i.date === selectedSquare && !filteredInstances.find(j => j.date === i.date)
             ? styles.gridSquareGraySelected
             : filteredInstances.find(j => j.date === i.date)
-            ? styles.gridSquareBlue 
+            ? {...styles.gridSquareBlue, backgroundColor: data.color}
             : styles.gridSquareGray}>
             </TouchableOpacity>
       ))}
@@ -295,12 +295,9 @@ const styles = StyleSheet.create({
     margin: 8, 
     padding: 4,
     color: "white", 
-    backgroundColor: "rgb(59 130 246)",
     fontFamily: "Raleway_500Medium", 
     fontSize: 16,
     width: "auto",
-    borderWidth: 0.5,
-    borderColor: "rgb(59 130 246)",
     borderRadius: 10,
     overflow: "hidden"
   },
