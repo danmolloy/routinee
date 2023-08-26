@@ -29,7 +29,7 @@ const monthIndex = yearArr[0].date.slice(5, 7)
 export default function Activity() {
   const { activity } = useLocalSearchParams()
   const [data, setData] = useState<ActivityType|null>(null)
-  const [calendarType, setCalendarType] = useState<string>("month")
+  const [calendarType, setCalendarType] = useState<string>("year")
   const [selected, setSelected] = useState(DateTime.now().toFormat('yyyy-MM-dd'));
   const [selectedSquare, setSelectedSquare] = useState<string>(DateTime.now().toFormat('yyyy-MM-dd'))
   const [hashtagFilters, setHashtagFilters] = useState<string>("")
@@ -144,7 +144,7 @@ export default function Activity() {
       </Text>
       {getHashtags(data.instances).length > 0 
       && <View>
-        <Text style={{marginHorizontal: 12, marginTop: 12, color: "black", fontFamily: "Raleway_500Medium", fontSize: 14}}>
+        <Text style={{marginHorizontal: 12, marginTop: 0, color: "gray", fontFamily: "Raleway_500Medium", fontSize: 12}}>
           Filter by hashtag
         </Text>
         <View style={{flex: 1, flexDirection: "row", flexWrap: "wrap"}}>
@@ -159,16 +159,17 @@ export default function Activity() {
       </View>}
       </View>
       <View style={styles.tabsView}>
+      <TouchableOpacity  style={calendarType === "year" ? {...styles.selectedTabButton, borderBottomColor: data.color}: styles.tabButton} onPress={() => setCalendarType("year")}>
+          <Text>
+            Year
+          </Text>
+        </TouchableOpacity>
         <TouchableOpacity style={calendarType === "month" ? {...styles.selectedTabButton, borderBottomColor: data.color}: styles.tabButton} onPress={() => setCalendarType("month")}>
           <Text>
             Month
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity  style={calendarType === "year" ? {...styles.selectedTabButton, borderBottomColor: data.color}: styles.tabButton} onPress={() => setCalendarType("year")}>
-          <Text>
-            Year
-          </Text>
-        </TouchableOpacity>
+        
       </View>
       {calendarType === "month" 
       ? <View style={styles.monthContainer}>
@@ -179,9 +180,9 @@ export default function Activity() {
         && <Text style={{fontSize: 20, fontFamily: "Raleway_700Bold", paddingVertical: 4, color: data.color}}>
           #{hashtagFilters}
         </Text>}
-        <Text style={{marginLeft: 12,fontFamily: "Raleway_400Regular", fontSize: 16, paddingVertical: 4, color: "black"}}>
+        {/* <Text style={{marginLeft: 12,fontFamily: "Raleway_400Regular", fontSize: 16, paddingVertical: 4, color: "black"}}>
           28 day count: {countPeriodInstances(filteredInstances, 28)}
-        </Text>
+        </Text> */}
         <CalendarPicker selected={selected} setSelected={(e) => setSelected(e)} instancesArr={filteredInstances} activityColor={data.color}/> 
         <DayOverview hashtagFilters={hashtagFilters} selectedDate={selected} instances={filteredInstances.filter(i => String(i.date) === selected)}/>     
       </View>
@@ -193,9 +194,9 @@ export default function Activity() {
         && <Text style={{fontSize: 20, fontFamily: "Raleway_700Bold", paddingVertical: 4, color: data.color}}>
           #{hashtagFilters}
         </Text>}
-        <Text style={{marginLeft: 12,fontFamily: "Raleway_400Regular", fontSize: 16, paddingVertical: 4, color: "black"}}>
+       {/*  <Text style={{marginLeft: 12,fontFamily: "Raleway_400Regular", fontSize: 16, paddingVertical: 4, color: "black"}}>
           Year count: {countPeriodInstances(filteredInstances, 365)}
-        </Text>
+        </Text> */}
         <InvertibleScrollView horizontal={true} inverted={true} >
     <View style={{flex: 1, flexDirection: "column"}}>
     <View style={styles.monthArr}>

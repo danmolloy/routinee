@@ -24,31 +24,31 @@ export default function DayOverview(props: DayOverviewProps) {
 
   return (
     <View style={styles.container}>
-      <Text style={{fontFamily: "Raleway_700Bold", fontSize: 20, paddingVertical: 8}}>
-        {String(DateTime.fromISO(selectedDate).toFormat("dd LLLL yyyy"))}
+      <Text style={{fontFamily: "Raleway_700Bold", fontSize: 18, paddingVertical: 2}}>
+        {String(DateTime.fromISO(selectedDate).toFormat("EEE dd LLLL yyyy"))}
       </Text>
-      <Text style={{fontFamily: "Raleway_500Medium", fontSize: 16, marginHorizontal: 12, marginBottom: 6}}>
-        You logged {instances.length} instance{instances.length > 1 && "s"} on this day {hashtagFilters !== "" && `tagged #${hashtagFilters}`}.
+      <Text style={{fontFamily: "Raleway_500Medium", fontSize: 14, marginHorizontal: 0, marginBottom: 3}}>
+        {instances.length} instance{instances.length > 1 && "s"} logged.
       </Text>
       {instances.map(i => (
         <View key={i.id} style={styles.instanceContainer}>
-          <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 20}}>
+          <Text style={{fontFamily: "Raleway_500Medium", fontSize: 16}}>
             Instance {instances.indexOf(i) + 1}
           </Text>
           {!i.count && !i.hashtags && !i.notes
-          && <Text style={{fontFamily: "Raleway_400Regular", fontSize: 16, color: "rgb(100 116 139)", marginHorizontal: 12, marginVertical: 6}}>
-            No information on this instance
+          && <Text style={{fontFamily: "Raleway_400Regular", fontSize: 14, color: "rgb(100 116 139)", marginHorizontal: 12, marginVertical: 6}}>
+            No information
           </Text>}
           {i.count 
-          && <Text style={{fontFamily: "Raleway_500Medium", fontSize: 16, marginHorizontal: 12, marginVertical: 6}}>
+          && <Text style={{fontFamily: "Raleway_500Medium", fontSize: 14, marginHorizontal: 12, marginVertical: 6}}>
             Count: {i.count}
           </Text>}
           {i.notes 
-          && <Text style={{fontFamily: "Raleway_500Medium", fontSize: 16, marginHorizontal: 12, marginVertical: 6}}>
+          && <Text style={{fontFamily: "Raleway_500Medium", fontSize: 14, marginHorizontal: 12, marginVertical: 6}}>
             Notes: {i.notes ? i.notes : "n/a"}
           </Text>}
           {i.hashtags 
-          && <Text style={{fontFamily: "Raleway_500Medium", fontSize: 16, marginHorizontal: 12, marginVertical: 6}}>
+          && <Text style={{fontFamily: "Raleway_500Medium", fontSize: 14, marginHorizontal: 12, marginVertical: 6}}>
             {i.hashtags && i.hashtags.length > 0 ? [...i.hashtags.map(i => (
               <Text key={i}>
                 {`#${i} `}
