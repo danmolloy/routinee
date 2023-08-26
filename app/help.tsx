@@ -1,4 +1,5 @@
 import { Feather } from "@expo/vector-icons";
+import { useFonts, Raleway_700Bold, Raleway_600SemiBold, Raleway_500Medium } from '@expo-google-fonts/raleway';
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
@@ -24,7 +25,7 @@ const helpArr = [
   {
     header: "Viewing your data",
     info: [
-      "View the data of your instance by clicking the view data button. The page contains a month view calendar or a year-long heat chart.",
+      "View the data of your instance by clicking the activity name. The data page contains a month view calendar or a year-long heat chart.",
       "Select a day on the calendar/heat chart to view a list of instances you logged that day.",
       "You can also filter your instances by the hashtags you've added.",
       "Additionally, you can edit the activity (and it's instances) or delete it."
@@ -34,6 +35,11 @@ const helpArr = [
 
 export default function HelpCenter() {
   const [pageIndex, setPageIndex] = useState<number>(0)
+  let [fontsLoaded, fontError] = useFonts({
+    Raleway_700Bold,
+    Raleway_600SemiBold, 
+    Raleway_500Medium,
+  });
 
   const handlePress = (operator: string) => {
     if (operator === "+" && pageIndex < helpArr.length - 1) {
@@ -43,6 +49,10 @@ export default function HelpCenter() {
     } else {
       return;
     }
+  }
+
+  if (!fontsLoaded && !fontError) {
+    return null;
   }
 
 
@@ -64,6 +74,9 @@ export default function HelpCenter() {
         <TouchableOpacity onPress={() => handlePress("-")} style={styles.navBtn}>
           <Feather size={32} name="chevron-left" color={"rgb(59 130 246)"}/>
         </TouchableOpacity>
+        <Text style={styles.text}>
+          {`${pageIndex + 1} / ${helpArr.length}`}
+        </Text>
         <TouchableOpacity onPress={() => handlePress("+")} style={styles.navBtn}>
           <Feather size={32} name="chevron-right" color={"rgb(59 130 246)"} />
         </TouchableOpacity>
@@ -76,6 +89,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
+    padding: 8
   },
   sectionContainer: {
     padding: 12
@@ -83,9 +97,11 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 20,
     padding: 12,
+    fontFamily: "Raleway_700Bold"
   },
   text: {
-    paddingVertical: 12
+    paddingVertical: 12,
+    fontFamily: "Raleway_600SemiBold"
   },
   btnContainer: {
     marginVertical: 24, 
@@ -95,17 +111,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly"
   },
   navBtn: {
-    borderWidth: 0.5,
+   
     width: 60, 
     height: 60,
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
-    shadowColor: 'rgb(30 64 175)',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    elevation: 2,
+    
   }
 })

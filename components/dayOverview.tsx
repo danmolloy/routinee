@@ -28,7 +28,7 @@ export default function DayOverview(props: DayOverviewProps) {
         {String(DateTime.fromISO(selectedDate).toFormat("dd LLLL yyyy"))}
       </Text>
       <Text style={{fontFamily: "Raleway_500Medium", fontSize: 16, marginHorizontal: 12, marginBottom: 6}}>
-        You have {instances.length} instance{instances.length > 1 && "s"} on this day {hashtagFilters !== "" && `tagged #${hashtagFilters}`}.
+        You logged {instances.length} instance{instances.length > 1 && "s"} on this day {hashtagFilters !== "" && `tagged #${hashtagFilters}`}.
       </Text>
       {instances.map(i => (
         <View key={i.id} style={styles.instanceContainer}>
@@ -63,7 +63,8 @@ export default function DayOverview(props: DayOverviewProps) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 12
+    padding: 12,
+    paddingBottom: "25%"
   },
   instanceContainer: {
     marginVertical: 12,

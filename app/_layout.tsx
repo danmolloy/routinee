@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-    backgroundColor: "rgb(239 246 255)",
-    
+    borderTopColor: "rgb(239 246 255)",
+    borderTopWidth: 1
   },
   link: {
     height: 60,

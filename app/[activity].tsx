@@ -323,13 +323,13 @@ const styles = StyleSheet.create({
   gridSquareBlueSelected: {
     ...gridSquare,
     backgroundColor: "rgb(96 165 250)",
-    borderColor: "rgb(134 239 172)",
+    borderColor: "black",
     borderWidth: 2,
   },
   gridSquareGraySelected: {
     ...gridSquare,
     backgroundColor: "rgb(229 229 229)",
-    borderColor: "rgb(134 239 172)",
+    borderColor: "black",
     borderWidth: 2,
   },
   gridSquareBlue: {

@@ -5,15 +5,16 @@ import uuid from 'react-native-uuid'
 import { Field, Formik } from 'formik'
 import { router } from "expo-router";
 import { ActivityType } from ".";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import CustomData from "../components/CustomData";
 
-const colorArr = ["rgb(74 222 128)", "rgb(168 85 247)", "rgb(244 63 94)", "rgb(94 234 212)", "rgb(34 211 238)", "rgb(99 102 241)", "rgb(244 114 182)", "rgb(52 211 153)", "rgb(251 191 36)"]
+export const colorArr = ["rgb(74 222 128)", "rgb(168 85 247)", "rgb(244 63 94)",  "rgb(34 211 238)", "rgb(99 102 241)", "rgb(244 114 182)", "rgb(52 211 153)", "rgb(245 158 11)"]
 
 export default function CreateActivity() {
   const [name, setName] = useState("")
   const [blurb, setBlurb] = useState("")
   const [data, setData] = useState([])
+  const [selectedColor, setSelectedColor] = useState(colorArr[0])
 
   const getData = async () => {
     try {
@@ -49,8 +50,8 @@ export default function CreateActivity() {
   }
 
   return (
-    <View style={styles.container} onTouchStart={Keyboard.dismiss}>
-      <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 20, marginVertical: 6}}>
+    <ScrollView style={styles.container} onTouchStart={Keyboard.dismiss}>
+      <Text style={{fontFamily: "Raleway_700Bold", fontSize: 20, margin: 6}}>
         Create Activity
       </Text>
       <Formik
@@ -59,9 +60,8 @@ export default function CreateActivity() {
            blurb: '',
            instances: [],
            id: String(uuid.v1()),
-           color: colorArr[Math.floor(Math.random() * colorArr.length)] 
           }}
-        onSubmit={values => handleCreate(values)}
+        onSubmit={values => handleCreate({...values, color: selectedColor})}
       >
       {({ handleChange, handleBlur, handleSubmit, values }) => (
        <View style={styles.formikContainer}>
@@ -97,6 +97,18 @@ export default function CreateActivity() {
             maxLength={150}
          />
          </View>
+         <View style={styles.inputContainer}>
+          <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 16}}>
+            Color
+          </Text>
+          <View style={styles.colorPickerContainer}>
+            {colorArr.map(i => (
+              <TouchableOpacity onPress={() => setSelectedColor(i)} key={i}>
+                <View style={selectedColor === i ? {...styles.colorPicker, backgroundColor: i, borderColor: "black", borderWidth: 2} : {...styles.colorPicker, backgroundColor: i}} />
+              </TouchableOpacity>
+            ))}
+          </View>
+          </View>
          
          <TouchableOpacity style={styles.submitButton} onPress={() => handleSubmit()}>
           <Text style={{fontFamily: "Raleway_500Medium", color: "rgb(59 130 246)"}}>
@@ -107,22 +119,34 @@ export default function CreateActivity() {
      )}
       </Formik>
       {/* <CustomData /> */}
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 20
+    fontSize: 20,
+    
+  },
+  colorPickerContainer: {
+    flex: 1, 
+    flexDirection: "row",
+    padding: 10,
+    flexWrap: "wrap"
+  },
+  colorPicker: {
+    width: 20,
+    height: 20,
+    borderRadius: 6,
+    margin: 2,
   },
   container: {
     flex: 1,
     height: "50%",
-    alignItems: 'center',
-    justifyContent: "flex-start",
+    
     width: "100%",
     padding: 12,
-
+    paddingBottom: "50%"
   },
   formikContainer: {
     height: "70%",

@@ -7,10 +7,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FieldArray, Formik } from "formik";
 import { ScrollView } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
+import { colorArr } from "../create";
 
 export default function EditActivity() {
   const { id } = useLocalSearchParams();
   const [data, setData] = useState<ActivityType|null>(null)
+  const [selectedColor, setSelectedColor] = useState(colorArr[0])
 
   const getData = async () => {
     try {
@@ -53,7 +55,7 @@ export default function EditActivity() {
 
 
   return (
-    <View  style={styles.container} onTouchStart={Keyboard.dismiss}>
+    <ScrollView  style={styles.container} onTouchStart={Keyboard.dismiss}>
       <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 20, marginVertical: 6}}>
         Edit Activity
       </Text>
@@ -62,16 +64,16 @@ export default function EditActivity() {
            name: data.name,
            blurb: data.blurb,
            instances: data.instances,
-           id: data.id
+           id: data.id,
           }}
-        onSubmit={values => handleEdit(values)}
+        onSubmit={values => handleEdit({...values, color: selectedColor})}
       >
       {({ handleChange, handleBlur, handleSubmit, values }) => (
        <View style={styles.formikContainer}>
         <View           
           style={styles.inputContainer}
         >
-         <Text >
+         <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 16}} >
           Activity
          </Text>
          <TextInput
@@ -84,7 +86,7 @@ export default function EditActivity() {
          <View 
           style={styles.inputContainer}
          >
-         <Text>
+         <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 16}}>
           Blurb
          </Text>
          <TextInput
@@ -98,10 +100,16 @@ export default function EditActivity() {
             maxLength={150}
          />
          </View>
+          <View style={styles.inputContainer}>
+         <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 16}}>
+          Instances
+         </Text>
          <FieldArray name="instances">
           {({insert, remove, push}: any) => (
           <ScrollView style={styles.instancesScrollView}>
-          {values.instances.map((i, index) => (
+          {values.instances.length < 1 
+          ? <Text style={{fontFamily: "Raleway_500Medium", fontSize: 14, margin: 6, color: "gray"}}>No instances</Text>
+          : values.instances.map((i, index) => (
             <View style={styles.instanceView}>
               <View style={{flex: 1, flexDirection: "row", alignItems: "center"}}>
               <Text key={i.id} style={{fontSize: 16}}>
@@ -129,6 +137,19 @@ export default function EditActivity() {
           </ScrollView>
           )}
          </FieldArray>
+         </View>
+         <View style={styles.inputContainer}>
+          <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 16}}>
+            Color
+          </Text>
+          <View style={styles.colorPickerContainer}>
+            {colorArr.map(i => (
+              <TouchableOpacity onPress={() => setSelectedColor(i)} key={i}>
+                <View style={selectedColor === i ? {...styles.colorPicker, backgroundColor: i, borderColor: "black", borderWidth: 2} : {...styles.colorPicker, backgroundColor: i}} />
+              </TouchableOpacity>
+            ))}
+          </View>
+          </View>
          <TouchableOpacity style={styles.submitButton} onPress={() => handleSubmit()}>
           <Text style={{fontFamily: "Raleway_500Medium", color: "rgb(59 130 246)"}}>
             Submit
@@ -139,24 +160,38 @@ export default function EditActivity() {
       </Formik>
 
       
-    </View>
+    </ScrollView>
   )
 }
 
 
 const styles = StyleSheet.create({
+  colorPickerContainer: {
+    flex: 1, 
+    flexDirection: "row",
+    padding: 10,
+    flexWrap: "wrap"
+  },
+  colorPicker: {
+    width: 20,
+    height: 20,
+    borderRadius: 6,
+    margin: 2,
+  },
   instancesScrollView: {
     flex: 1, 
+    borderColor: "rgb(203 213 225)",
     borderWidth: 1,
-    borderColor: "black",
-    width: "75%",
-    margin: 8,
     padding: 4,
+    borderRadius: 5,
+    width: "100%",
+    margin: 8,
   },
   instanceView: {
     flex: 1,
     flexDirection: "column",
     padding: 4,
+    
   },
   heading: {
     fontSize: 20
@@ -164,8 +199,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: "50%",
-    alignItems: 'center',
-    justifyContent: "flex-start",
     width: "100%",
     padding: 12,
 
@@ -176,6 +209,8 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     width: "100%",
     padding: 12,
+    paddingBottom: "25%",
+
   },
 
   textInput: {

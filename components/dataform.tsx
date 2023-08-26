@@ -17,6 +17,7 @@ export type DataFormProps = {
   setAddData: (data: any) => void
   setShowForm: (arg: boolean) => void
   getData: () => void
+  color: string
 }
 
 export type InstanceData = {
@@ -29,7 +30,7 @@ export type InstanceData = {
 }
 
 export default function DataForm(props: DataFormProps) {
-  const { activityId, instanceId, data, getData, setAddData, setShowForm } = props;
+  const { activityId, instanceId, data, getData, setAddData, setShowForm, color } = props;
   const [newDate, setNewDate] = useState(new Date())
   const [showDatePicker, setShowDatePicker] = useState(false);
   let [fontsLoaded, fontError] = useFonts({
@@ -107,7 +108,7 @@ export default function DataForm(props: DataFormProps) {
         <View 
           style={styles.inputContainer}
          >
-         <Text style={styles.inputLabel}>
+         <Text style={{...styles.inputLabel, color: color}}>
           Date 
          </Text>
          
@@ -118,7 +119,7 @@ export default function DataForm(props: DataFormProps) {
         <View           
           style={styles.inputContainer}
         >
-         <Text style={styles.inputLabel}>
+         <Text style={{...styles.inputLabel, color: color}}>
           Count/Reps
          </Text>
          <TextInput
@@ -133,12 +134,12 @@ export default function DataForm(props: DataFormProps) {
          <View 
           style={styles.inputContainer}
          >
-         <Text style={styles.inputLabel}>
+         <Text style={{...styles.inputLabel, color: color}}>
           Notes
          </Text>
          <TextInput
           placeholder="Really glad I did it! Feeling great."
-            style={styles.textInput}
+            style={styles.textAreaInput}
            onChangeText={handleChange('notes')}
            onBlur={() => {handleBlur('notes'); Keyboard.dismiss()}}
            value={values.notes}
@@ -152,23 +153,23 @@ export default function DataForm(props: DataFormProps) {
         <View 
           style={styles.inputContainer}
          >
-         <Text style={{color: "white"}}>
+         <Text style={{...styles.inputLabel, color: color}}>
           Hastags
          </Text>
          <TextInput
           placeholder="fun exciting keepOnPushing"
-          style={styles.textInput}
+          style={styles.textAreaInput}
           onChangeText={handleChange('hashtags')}
           onBlur={handleBlur('hashtags')}
           value={values.hashtags}
           editable
-          multiline
+          multiline={true}
           numberOfLines={2}
-          maxLength={40}
+          maxLength={150}
          />
          </View>
          <TouchableOpacity style={styles.submitButton} onPress={() => handleSubmit()}>
-          <Text style={{fontFamily: "Raleway_500Medium", color: "rgb(59 130 246)"}}>Submit</Text>
+          <Text style={{fontFamily: "Raleway_500Medium", color: color}}>Submit</Text>
         </TouchableOpacity>
        </View>
      )}
@@ -200,6 +201,15 @@ const styles = StyleSheet.create({
     height: 32,
     backgroundColor: "white"
   },
+  textAreaInput: {
+    borderColor: "rgb(203 213 225)",
+    borderWidth: 1,
+    padding: 5,
+    borderRadius: 5,
+    marginVertical: 8,
+    height: 64,
+    backgroundColor: "white"
+  },
   inputContainer: {
     width: 250,
     marginVertical: 12,
@@ -228,7 +238,6 @@ const styles = StyleSheet.create({
   inputLabel: {
     fontFamily: "Raleway_500Medium",
     fontSize: 16,
-    color: "white"
   },
   datePicker: {
     alignSelf: "flex-start",

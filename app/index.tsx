@@ -86,8 +86,15 @@ export default function App() {
     <View style={styles.container} >
       {data.length > 0 
       ? data.map(i => (
-        <View key={i.id} style={i.id === addData?.activity && showForm === true ? {...styles.activityLarge, backgroundColor: i.color} : {...styles.activitySimple, backgroundColor: i.color}}>
-        <View style={{...styles.activityHeader, backgroundColor: i.color}}>
+        <View key={i.id} style={i.id === addData?.activity && showForm === true ? {...styles.activityLarge, borderColor: i.color, borderWidth: 1 } : {...styles.activitySimple, backgroundColor: i.color}}>
+        <Link 
+        asChild
+        href={{
+          pathname: `/${[i.name.toLowerCase()]}`,
+          params: { activity: i.name.toLowerCase() }
+      }}>
+        <TouchableOpacity style={{...styles.activityHeader, backgroundColor: i.color}}>
+        
           <View>
         <Text style={{fontSize: 20, color: "white", fontFamily:"Raleway_700Bold"}}>
           {i.name}
@@ -103,7 +110,7 @@ export default function App() {
           && <TouchableOpacity style={styles.activityButton} onPress={() => setShowForm(!showForm)} >
             <Feather size={20} name='edit' color={i.color} />
           </TouchableOpacity>}
-        <Link 
+        {/* <Link 
         asChild
         href={{
           pathname: `/${[i.name.toLowerCase()]}`,
@@ -112,14 +119,16 @@ export default function App() {
         <TouchableOpacity style={styles.activityButton} onPress={() => {}} >
         <Feather size={20} name="activity" color={i.color} />
         </TouchableOpacity>
-      </Link>
+      </Link> */}
       <TouchableOpacity style={styles.activityButton} onPress={() => {handleClick(i.id)}} >
         <Feather size={20} name='check' color={i.color} />
       </TouchableOpacity>
       </View>
-      </View>
+      </TouchableOpacity>
+      </Link>
+
       {i.id === addData?.activity && showForm === true
-      && <DataForm setShowForm={(bool) => setShowForm(bool)} getData={() => getData()} setAddData={data => setAddData(data)} data={data} activityId={addData.activity} instanceId={addData.instance} />}
+      && <DataForm color={i.color} setShowForm={(bool) => setShowForm(bool)} getData={() => getData()} setAddData={data => setAddData(data)} data={data} activityId={addData.activity} instanceId={addData.instance} />}
       </View>
       ))
       : <Text style={styles.blankText}>Click the help button (bottom right corner) to get started.</Text>}
@@ -150,6 +159,8 @@ const styles = StyleSheet.create({
     height: 60,
     justifyContent: "space-between",
     alignItems: "center",
+    paddingHorizontal: 4,
+    borderRadius: 6
   },
   activitySimple: {
     ...activity,
@@ -168,7 +179,8 @@ const styles = StyleSheet.create({
     height: "85%",
     width: "100%",
     padding: 12,
-    backgroundColor: "white"
+    backgroundColor: "white",
+    paddingBottom: "50%",
     
   },
   activityLarge: {
