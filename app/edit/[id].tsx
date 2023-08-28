@@ -56,9 +56,6 @@ export default function EditActivity() {
 
   return (
     <ScrollView  style={styles.container} onTouchStart={Keyboard.dismiss}>
-      <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 20, marginVertical: 6}}>
-        Edit Activity
-      </Text>
       <Formik
         initialValues={{
            name: data.name,
@@ -70,6 +67,9 @@ export default function EditActivity() {
       >
       {({ handleChange, handleBlur, handleSubmit, values }) => (
        <View style={styles.formikContainer}>
+        <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 20, marginVertical: 6}}>
+        Edit Activity
+      </Text>
         <View           
           style={styles.inputContainer}
         >
@@ -170,11 +170,14 @@ const styles = StyleSheet.create({
     flex: 1, 
     flexDirection: "row",
     padding: 10,
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    borderRadius: 12,
+    justifyContent: 'space-evenly',
+    marginVertical: 8
   },
   colorPicker: {
-    width: 20,
-    height: 20,
+    width: 24,
+    height: 24,
     borderRadius: 6,
     margin: 2,
   },
@@ -186,12 +189,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: "100%",
     margin: 8,
+    backgroundColor: "white"
+
   },
   instanceView: {
     flex: 1,
     flexDirection: "column",
     padding: 4,
-    
+    backgroundColor: "white"
   },
   heading: {
     fontSize: 20
@@ -204,12 +209,15 @@ const styles = StyleSheet.create({
 
   },
   formikContainer: {
-    height: "90%",
     alignItems: 'center',
     justifyContent: "flex-start",
     width: "100%",
     padding: 12,
-    paddingBottom: "25%",
+    backgroundColor: "white",
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 12,
+    marginBottom: "50%"
 
   },
 
@@ -219,6 +227,8 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 5,
     marginVertical: 8,
+    backgroundColor: "white",
+    fontSize: 18
   },
   blurbInput: {
     borderColor: "rgb(203 213 225)",
@@ -226,7 +236,9 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 5,
     marginVertical: 8,
-    height: 100
+    height: 100,
+    fontSize: 18,
+    backgroundColor: "white"
   },
   inputContainer: {
     width: 250,
@@ -251,10 +263,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 2,
+    backgroundColor: "white"
 
   },
   inputLabel: {
     fontFamily: "Raleway_500Medium",
-    fontSize: 16
+    fontSize: 16,
+    color: "white"
   },
 });

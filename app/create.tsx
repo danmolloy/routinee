@@ -8,7 +8,59 @@ import { ActivityType } from ".";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import CustomData from "../components/CustomData";
 
-export const colorArr = ["rgb(74 222 128)", "rgb(168 85 247)", "rgb(244 63 94)",  "rgb(34 211 238)", "rgb(99 102 241)", "rgb(244 114 182)", "rgb(52 211 153)", "rgb(245 158 11)"]
+export const colorArr = ["rgb(74 222 128)", "rgb(168 85 247)", "rgb(244 63 94)",  "rgb(34 211 238)", "rgb(99 102 241)", "rgb(244 114 182)", "rgb(245 158 11)"]
+
+
+export const colorPalettes: {
+  primary: string
+  light: string
+  dark: string
+  darkest: string
+}[] = [
+  {
+    primary: "rgb(74 222 128)",
+    light: "rgb(187 247 208)",
+    dark: "rgb(22 163 74)",
+    darkest: "rgb(22 101 52)",
+  },
+  {
+    primary: "rgb(168 85 247)",
+    light: "rgb(216 180 254)",
+    dark: "rgb(126 34 206)",
+    darkest: "rgb(88 28 135)",
+  },
+  {
+    primary: "rgb(244 63 94)",
+    light: "rgb(253 164 175)",
+    dark: "rgb(190 18 60)",
+    darkest: "rgb(136 19 55)"
+  },
+  { 
+    primary: "rgb(34 211 238)",
+    light: "rgb(165 243 252)",
+    dark: "rgb(8 145 178)",
+    darkest: "rgb(21 94 117)",
+  },
+  { 
+    primary: "rgb(99 102 241)",
+    light: "rgb(165 180 252)",
+    dark: "rgb(67 56 202)",
+    darkest: "rgb(49 46 129)",
+
+  },
+  {
+    primary: "rgb(244 114 182)",
+    light: "rgb(251 207 232)",
+    dark: "rgb(219 39 119)",
+    darkest: "rgb(157 23 77)"
+  }, 
+  {
+    primary: "rgb(245 158 11)",
+    light: "rgb(252 211 77)",
+    dark: "rgb(180 83 9)",
+    darkest: "rgb(146 64 14)"
+  }
+]
 
 export default function CreateActivity() {
   const [name, setName] = useState("")
@@ -51,9 +103,6 @@ export default function CreateActivity() {
 
   return (
     <ScrollView style={styles.container} onTouchStart={Keyboard.dismiss}>
-      <Text style={{fontFamily: "Raleway_700Bold", fontSize: 20, margin: 6}}>
-        Create Activity
-      </Text>
       <Formik
         initialValues={{
            name: '',
@@ -64,11 +113,14 @@ export default function CreateActivity() {
         onSubmit={values => handleCreate({...values, color: selectedColor})}
       >
       {({ handleChange, handleBlur, handleSubmit, values }) => (
-       <View style={styles.formikContainer}>
+       <View style={{...styles.formikContainer, borderColor: "black"}}>
+        <Text style={{fontFamily: "Raleway_700Bold", fontSize: 24, margin: 6, color: "black" }}>
+        Create Activity
+      </Text>
         <View           
           style={styles.inputContainer}
         >
-         <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 16}}>
+         <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 18, color: ""}}>
           Activity
          </Text>
          <TextInput
@@ -82,7 +134,7 @@ export default function CreateActivity() {
          <View 
           style={styles.inputContainer}
          >
-         <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 16}}>
+         <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 18}}>
           Blurb
          </Text>
          <TextInput
@@ -98,7 +150,7 @@ export default function CreateActivity() {
          />
          </View>
          <View style={styles.inputContainer}>
-          <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 16}}>
+          <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 18}}>
             Color
           </Text>
           <View style={styles.colorPickerContainer}>
@@ -111,7 +163,7 @@ export default function CreateActivity() {
           </View>
          
          <TouchableOpacity style={styles.submitButton} onPress={() => handleSubmit()}>
-          <Text style={{fontFamily: "Raleway_500Medium", color: "rgb(59 130 246)"}}>
+          <Text style={{fontFamily: "Raleway_500Medium", color: "rgb(59 130 246)", backgroundColor: "white"}}>
             Create
           </Text>
          </TouchableOpacity>
@@ -132,28 +184,32 @@ const styles = StyleSheet.create({
     flex: 1, 
     flexDirection: "row",
     padding: 10,
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    borderRadius: 12,
+    justifyContent: 'space-evenly',
+    marginVertical: 8
   },
   colorPicker: {
-    width: 20,
-    height: 20,
+    width: 24,
+    height: 24,
     borderRadius: 6,
     margin: 2,
   },
   container: {
     flex: 1,
-    height: "50%",
-    
     width: "100%",
     padding: 12,
     paddingBottom: "50%"
   },
   formikContainer: {
-    height: "70%",
     alignItems: 'center',
     justifyContent: "flex-start",
     width: "100%",
     padding: 12,
+    backgroundColor: "white",
+    borderRadius: 12,
+    marginBottom: "50%",
+    borderWidth: 1,
   },
 
   textInput: {
@@ -162,6 +218,8 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 5,
     marginVertical: 8,
+    backgroundColor: "white",
+    fontSize: 16
   },
   blurbInput: {
     borderColor: "rgb(203 213 225)",
@@ -169,7 +227,9 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 5,
     marginVertical: 8,
-    height: 100
+    height: 140,
+    backgroundColor: "white",
+    fontSize: 16
   },
   inputContainer: {
     width: 250,
@@ -194,10 +254,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 2,
+    backgroundColor: "white"
 
   },
   inputLabel: {
     fontFamily: "Raleway_500Medium",
-    fontSize: 16
+    fontSize: 16,
+    color: "white"
   },
 });

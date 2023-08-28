@@ -131,7 +131,9 @@ export default function App() {
       && <DataForm color={i.color} setShowForm={(bool) => setShowForm(bool)} getData={() => getData()} setAddData={data => setAddData(data)} data={data} activityId={addData.activity} instanceId={addData.instance} />}
       </View>
       ))
-      : <Text style={styles.blankText}>Click the help button (bottom right corner) to get started.</Text>}
+      : <View style={styles.helperContainer}>
+        <Text style={styles.helperText}>Click the help button (bottom right corner) to get started.</Text>
+      </View>}
       <StatusBar style="auto" />
     </View>
     </ScrollView>
@@ -218,10 +220,16 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
   },
-  blankText: {
+  helperText: {
     fontFamily: "Raleway_600SemiBold",
-    fontSize: 16,
+    fontSize: 18,
     textAlign: "center",
     padding: 24,
+    color: "white"
+  },
+  helperContainer: {
+    backgroundColor: "rgb(168 85 247)",
+    marginVertical: "30%",
+    borderRadius: 12
   }
 });

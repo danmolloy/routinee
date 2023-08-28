@@ -58,6 +58,7 @@ export default function HelpCenter() {
 
   return (
     <ScrollView style={styles.container}>
+      <View style={styles.textContainer}>
       <View>
         <Text style={styles.header}>
           {helpArr[pageIndex].header}
@@ -72,14 +73,15 @@ export default function HelpCenter() {
       </View>
       <View style={styles.btnContainer}>
         <TouchableOpacity onPress={() => handlePress("-")} style={styles.navBtn}>
-          <Feather size={32} name="chevron-left" color={"rgb(59 130 246)"}/>
+          <Feather size={32} name="chevron-left" color={"#F59E0B"}/>
         </TouchableOpacity>
         <Text style={styles.text}>
           {`${pageIndex + 1} / ${helpArr.length}`}
         </Text>
         <TouchableOpacity onPress={() => handlePress("+")} style={styles.navBtn}>
-          <Feather size={32} name="chevron-right" color={"rgb(59 130 246)"} />
+          <Feather size={32} name="chevron-right" color={"#F59E0B"} />
         </TouchableOpacity>
+      </View>
       </View>
     </ScrollView>
   )
@@ -89,19 +91,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    padding: 8
+    padding: 8,
+    marginHorizontal: 8
+  },
+  textContainer: {
+    backgroundColor: "#6366F1",
+    height: "100%",
+    borderRadius: 12,
+    padding: 12,
   },
   sectionContainer: {
-    padding: 12
+    padding: 12,
+    backgroundColor: "transparent"
   },
   header: {
-    fontSize: 20,
+    fontSize: 24,
     padding: 12,
-    fontFamily: "Raleway_700Bold"
+    fontFamily: "Raleway_700Bold",
+    color: "white"
   },
   text: {
     paddingVertical: 12,
-    fontFamily: "Raleway_600SemiBold"
+    fontFamily: "Raleway_600SemiBold",
+    color: "white",
+    fontSize: 18
   },
   btnContainer: {
     marginVertical: 24, 

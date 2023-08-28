@@ -7,6 +7,7 @@ import { ActivityType } from "../app";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFonts, Raleway_700Bold, Raleway_600SemiBold, Raleway_500Medium } from '@expo-google-fonts/raleway';
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { getHashtags } from "../app/[activity]";
 
 
 
@@ -86,6 +87,7 @@ export default function DataForm(props: DataFormProps) {
     return null;
   }
 
+  const activity = data.find(i => i.id == activityId)
 
   return (
     <ScrollView style={styles.container} onTouchStart={Keyboard.dismiss}> 
@@ -157,7 +159,7 @@ export default function DataForm(props: DataFormProps) {
           Hastags
          </Text>
          <TextInput
-          placeholder="fun exciting keepOnPushing"
+          placeholder={activity !== undefined && getHashtags(activity.instances).length > 0 ?  getHashtags(activity.instances).reverse().join(" ") : "fun exciting keepOnPushing"}
           style={styles.textAreaInput}
           onChangeText={handleChange('hashtags')}
           onBlur={handleBlur('hashtags')}
@@ -199,7 +201,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginVertical: 8,
     height: 32,
-    backgroundColor: "white"
+    backgroundColor: "white",
+    fontSize: 17,
   },
   textAreaInput: {
     borderColor: "rgb(203 213 225)",
@@ -208,7 +211,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginVertical: 8,
     height: 64,
-    backgroundColor: "white"
+    backgroundColor: "white",
+    fontSize: 15,
+
   },
   inputContainer: {
     width: 250,
@@ -237,7 +242,7 @@ const styles = StyleSheet.create({
   },
   inputLabel: {
     fontFamily: "Raleway_500Medium",
-    fontSize: 16,
+    fontSize: 15,
   },
   datePicker: {
     alignSelf: "flex-start",

@@ -11,6 +11,7 @@ import DayOverview from "../components/dayOverview";
 import { Feather } from "@expo/vector-icons";
 import InvertibleScrollView from 'react-native-invertible-scroll-view';
 import Loading from "../components/loading";
+import { colorPalettes } from "./create";
 
 const monthsArr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
@@ -25,6 +26,16 @@ for (let i = 0; i < yearArr.length; i++) {
 
 const monthIndex = yearArr[0].date.slice(5, 7)
 
+
+export const getHashtags = (instances: ActivityInstance[]) => {
+  let hashtagsSet = new Set<string>()
+  for (let i = 0; i < instances.length; i++) {
+    if (instances[i].hashtags !== undefined) {
+      instances[i].hashtags?.filter(i => i !== "" && i !== " ").forEach(hashtag => hashtagsSet.add(hashtag));
+    }
+  }
+  return Array.from(hashtagsSet);
+}
 
 export default function Activity() {
   const { activity } = useLocalSearchParams()
@@ -94,19 +105,7 @@ export default function Activity() {
   const countPeriodInstances = (instanceArr: {date: string}[], days: number) => {
     return instanceArr.filter(i => String(i.date) > DateTime.now().minus({days:days}).toFormat('yyyy-MM-dd')).length
   }
-
-  const getHashtags = (instances: ActivityInstance[]) => {
-    let hashtagsSet = new Set<string>()
-
-    for (let i = 0; i < instances.length; i++) {
-      if (instances[i].hashtags !== undefined) {
-        instances[i].hashtags?.filter(i => i !== "" && i !== " ").forEach(hashtag => hashtagsSet.add(hashtag));
-      }
-
-    }
-    
-    return Array.from(hashtagsSet);
-  }
+  
 
   const handleHashtagPress = (hashtag: string): void => {
     if (hashtagFilters === hashtag && data) {
@@ -120,6 +119,31 @@ export default function Activity() {
     }
 
   } 
+
+  const getSquareStyle = (squareDate: string, numInstances: number) => {
+    const styleObj: any = {
+      width: 22,
+      height: 22,
+      margin: 1,
+      borderRadius: 2,
+    }
+    const palette = colorPalettes.find(i => i.primary === data?.color)
+    if (selectedSquare === squareDate) {
+      styleObj.borderColor = "black",
+      styleObj.borderWidth = 2
+    } 
+    if (numInstances > 2) {
+      styleObj.backgroundColor = palette ? palette.dark : data?.color
+    } else if (numInstances === 2) {
+      styleObj.backgroundColor = palette ? palette.primary : data?.color
+    } else if (numInstances === 1) {
+      styleObj.backgroundColor = palette ? palette.light : data?.color
+    } else {
+      styleObj.backgroundColor = "rgb(229 229 229)"    
+    }
+
+    return styleObj
+  }
 
 
   if (data === null) {
@@ -136,9 +160,11 @@ export default function Activity() {
     <ScrollView style={styles.scrollContainer}>
       <View style={styles.container}>
       <View style={styles.header}>
-      <Text style={{fontSize: 28, fontFamily: "Raleway_700Bold", color: data.color}}>
-        {data.name}
-      </Text>
+        <Link href={"/"}>
+          <Text style={{fontSize: 28, fontFamily: "Raleway_700Bold", color: data.color}}>
+            {data.name}
+          </Text>
+        </Link>
       <Text style={{margin: 12, color: "black", fontFamily: "Raleway_500Medium", fontSize: 18}}>
         {data.blurb}
       </Text>
@@ -209,15 +235,15 @@ export default function Activity() {
       <View style={styles.gridContainer}>
       
       {yearArr.map(i => (
-        <TouchableOpacity onPress={() => setSelectedSquare(i.date)} key={i.date} 
-          style={
-            i.date === selectedSquare && filteredInstances.find(j => j.date === i.date)
+        <TouchableOpacity key={i.date}  onPress={() => setSelectedSquare(i.date)} 
+          style={getSquareStyle(i.date, filteredInstances.filter(j => j.date === i.date).length)
+/*             i.date === selectedSquare && filteredInstances.find(j => j.date === i.date)
             ? {...styles.gridSquareBlueSelected, backgroundColor: data.color}
             : i.date === selectedSquare && !filteredInstances.find(j => j.date === i.date)
             ? styles.gridSquareGraySelected
             : filteredInstances.find(j => j.date === i.date)
             ? {...styles.gridSquareBlue, backgroundColor: data.color}
-            : styles.gridSquareGray}>
+            : styles.gridSquareGray */}>
             </TouchableOpacity>
       ))}
             </View>
@@ -255,8 +281,8 @@ export default function Activity() {
  */}      
 
 const gridSquare = {
-  width: 16,
-  height: 16,
+  width: 22,
+  height: 22,
   margin: 1,
   borderRadius: 2,
 
@@ -345,7 +371,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column-reverse",
     flexWrap: "wrap-reverse",
-    height: 130,
+    height: 170,
     width: "auto",
     alignContent: "center",
     justifyContent: "flex-start",

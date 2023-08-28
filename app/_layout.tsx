@@ -2,6 +2,8 @@ import { Link, Slot } from 'expo-router';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
+
+
 export default function Layout() {
 
 
@@ -30,7 +32,7 @@ export default function Layout() {
         underlayColor="black"
         
         >
-          <Feather size={32} name="plus" color={"rgb(59 130 246)"} />
+          <Feather size={32} name="plus" color={"#4ADE80"} />
           </TouchableHighlight>
         </Link>
         <Link href="/help" asChild>
@@ -40,7 +42,7 @@ export default function Layout() {
           underlayColor="black"
           
           >
-            <Feather size={32} name="help-circle" color={"rgb(59 130 246)"} />
+            <Feather size={32} name="help-circle" color={"#F472B6"} />
           </TouchableHighlight>
         </Link>
       </View>
@@ -53,7 +55,8 @@ const styles = StyleSheet.create({
     height: "100%",
     flex: 1,
     flexDirection: "column",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    backgroundColor: "white"
   },
   header: {
     height: 40,
