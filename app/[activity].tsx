@@ -45,6 +45,7 @@ export default function Activity() {
   const [selectedSquare, setSelectedSquare] = useState<string>(DateTime.now().toFormat('yyyy-MM-dd'))
   const [hashtagFilters, setHashtagFilters] = useState<string>("")
   const [filteredInstances, setFilteredInstances] = useState<ActivityInstance[]>([])
+  const [showFilters, setShowFilters] = useState<boolean>(false)
   
   let [fontsLoaded, fontError] = useFonts({
     Raleway_700Bold,
@@ -145,6 +146,23 @@ export default function Activity() {
     return styleObj
   }
 
+  const selectDate = (operand: string) => {
+    const todayDate = DateTime.now()
+    if (operand == "plus" && selectedSquare !== todayDate.toFormat('yyyy-MM-dd')) {
+      setSelectedSquare(DateTime.fromJSDate(new Date(selectedSquare)).plus({days: 1}).toFormat('yyyy-MM-dd'))
+    } else if (operand == "minus" && selectedSquare !== todayDate.minus({days: 363}).toFormat('yyyy-MM-dd')) {
+      setSelectedSquare(DateTime.fromJSDate(new Date(selectedSquare)).minus({days: 1}).toFormat('yyyy-MM-dd'))
+    }
+  }
+
+  const handleShowFilter = () => {
+    if (showFilters == true) {
+      handleHashtagPress(hashtagFilters)
+    } 
+      setShowFilters(!showFilters)
+    
+  }
+
 
   if (data === null) {
     return (
@@ -165,25 +183,39 @@ export default function Activity() {
             {data.name}
           </Text>
         </Link>
-      <Text style={{margin: 12, color: "black", fontFamily: "Raleway_500Medium", fontSize: 18}}>
-        {data.blurb}
-      </Text>
-      {getHashtags(data.instances).length > 0 
-      && <View>
-        <Text style={{marginHorizontal: 12, marginTop: 0, color: "gray", fontFamily: "Raleway_500Medium", fontSize: 12}}>
+        <TouchableOpacity onPress={() => handleShowFilter()} style={styles.filterBtn}>
+          {showFilters 
+          ? <Feather color={data.color} size={20} name="x" />
+          : <Feather color={data.color} size={20} name="hash" />}
+        </TouchableOpacity>
+        </View>
+      <View style={styles.hashtagsAndBlurb}>
+      {showFilters && 
+      getHashtags(data.instances).length === 0
+      ? <View>
+        <Text>
+          No filters
+        </Text>
+      </View>
+      :  showFilters && getHashtags(data.instances).length > 0 
+      ? <View style={styles.filtersContainer}>
+        <Text style={{marginHorizontal: 12, marginTop: 12, color: "gray", fontFamily: "Raleway_500Medium", fontSize: 12}}>
           Filter by hashtag
         </Text>
-        <View style={{flex: 1, flexDirection: "row", flexWrap: "wrap"}}>
+        <ScrollView horizontal={true} style={{ marginTop: 12 }} >
         {getHashtags(data.instances).map(i => (
-        <TouchableOpacity style={{alignSelf: "flex-start"}} key={i} onPress={() => handleHashtagPress(i)}>
-          <Text style={hashtagFilters === i ? {...styles.selectedFilter, backgroundColor: data.color} : {margin: 12, color: data.color, fontFamily: "Raleway_500Medium", fontSize: 16}}>
+        <TouchableOpacity style={{alignSelf: "flex-start", }} key={i} onPress={() => handleHashtagPress(i)}>
+          <Text style={hashtagFilters === i ? {...styles.selectedFilter, backgroundColor: data.color, marginHorizontal: 12,} : {padding: 4, marginHorizontal: 12, color: data.color, fontFamily: "Raleway_500Medium", fontSize: 16}}>
             #{i}
           </Text>
         </TouchableOpacity>
       ))}
+      </ScrollView>
       </View>
-      </View>}
-      </View>
+      : <Text style={{margin: 12, color: "black", fontFamily: "Raleway_500Medium", fontSize: 18}}>
+      {data.blurb}
+    </Text>}
+    </View>
       <View style={styles.tabsView}>
       <TouchableOpacity  style={calendarType === "year" ? {...styles.selectedTabButton, borderBottomColor: data.color}: styles.tabButton} onPress={() => setCalendarType("year")}>
           <Text>
@@ -199,30 +231,11 @@ export default function Activity() {
       </View>
       {calendarType === "month" 
       ? <View style={styles.monthContainer}>
-        {/* <Text style={{fontSize: 20, fontFamily: "Raleway_700Bold", paddingVertical: 8}}>
-          Month Overview 
-        </Text> */}
-        {hashtagFilters !== "" 
-        && <Text style={{fontSize: 20, fontFamily: "Raleway_700Bold", paddingVertical: 4, color: data.color}}>
-          #{hashtagFilters}
-        </Text>}
-        {/* <Text style={{marginLeft: 12,fontFamily: "Raleway_400Regular", fontSize: 16, paddingVertical: 4, color: "black"}}>
-          28 day count: {countPeriodInstances(filteredInstances, 28)}
-        </Text> */}
+        
         <CalendarPicker selected={selected} setSelected={(e) => setSelected(e)} instancesArr={filteredInstances} activityColor={data.color}/> 
         <DayOverview hashtagFilters={hashtagFilters} selectedDate={selected} instances={filteredInstances.filter(i => String(i.date) === selected)}/>     
       </View>
        :<View style={styles.yearContainer}>
-        {/* <Text style={{fontSize: 20, fontFamily: "Raleway_700Bold", paddingVertical: 8, }}>
-          Year Overview
-        </Text> */}
-        {hashtagFilters !== "" 
-        && <Text style={{fontSize: 20, fontFamily: "Raleway_700Bold", paddingVertical: 4, color: data.color}}>
-          #{hashtagFilters}
-        </Text>}
-       {/*  <Text style={{marginLeft: 12,fontFamily: "Raleway_400Regular", fontSize: 16, paddingVertical: 4, color: "black"}}>
-          Year count: {countPeriodInstances(filteredInstances, 365)}
-        </Text> */}
         <InvertibleScrollView horizontal={true} inverted={true} >
     <View style={{flex: 1, flexDirection: "column"}}>
     <View style={styles.monthArr}>
@@ -236,20 +249,24 @@ export default function Activity() {
       
       {yearArr.map(i => (
         <TouchableOpacity key={i.date}  onPress={() => setSelectedSquare(i.date)} 
-          style={getSquareStyle(i.date, filteredInstances.filter(j => j.date === i.date).length)
-/*             i.date === selectedSquare && filteredInstances.find(j => j.date === i.date)
-            ? {...styles.gridSquareBlueSelected, backgroundColor: data.color}
-            : i.date === selectedSquare && !filteredInstances.find(j => j.date === i.date)
-            ? styles.gridSquareGraySelected
-            : filteredInstances.find(j => j.date === i.date)
-            ? {...styles.gridSquareBlue, backgroundColor: data.color}
-            : styles.gridSquareGray */}>
+          style={getSquareStyle(i.date, filteredInstances.filter(j => j.date === i.date).length)}>
             </TouchableOpacity>
       ))}
             </View>
 
       </View>
       </InvertibleScrollView>
+      <View style={styles.dayHeader}>
+        <TouchableOpacity style={styles.navigateDayBtn} onPress={() => selectDate("minus")}>
+          <Feather name="chevron-left" />
+        </TouchableOpacity>
+        <Text style={{fontFamily: "Raleway_700Bold", fontSize: 18, paddingVertical: 2}}>
+          {String(DateTime.fromISO(selectedSquare).toFormat("EEE dd LLLL yyyy"))}
+        </Text>
+        <TouchableOpacity style={styles.navigateDayBtn} onPress={() => selectDate("plus")}>
+          <Feather name="chevron-right" />
+        </TouchableOpacity>
+      </View>
   <DayOverview hashtagFilters={hashtagFilters} selectedDate={selectedSquare} instances={filteredInstances.filter(i => String(i.date) === selectedSquare)}/>     
       </View>}
       <View style={styles.buttonsContainer}>
@@ -276,9 +293,7 @@ export default function Activity() {
     </ScrollView>
   )
 }
-
-{/*       <InvertibleScrollView horizontal={true} inverted={true} >
- */}      
+    
 
 const gridSquare = {
   width: 22,
@@ -319,7 +334,6 @@ const styles = StyleSheet.create({
     marginLeft: 32,
   },
   selectedFilter: {
-    margin: 8, 
     padding: 4,
     color: "white", 
     fontFamily: "Raleway_500Medium", 
@@ -346,6 +360,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    flexDirection: "column",
+    
   },
   gridSquareBlueSelected: {
     ...gridSquare,
@@ -392,6 +408,16 @@ const styles = StyleSheet.create({
   },
   header: {
     width: "95%",
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  filterBtn: {
+    borderWidth: 1,
+    borderColor: "gray",
+    padding: 8,
+    borderRadius: 20
   },
   editButtons: {
     borderColor: "rgb(203 213 225)",
@@ -415,6 +441,26 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center"
+  },
+  filtersContainer: {
+    flex: 1, 
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+  hashtagsAndBlurb: {
+    height: 75,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  dayHeader: {
+    flex: 1, 
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    padding: 12
+  },
+  navigateDayBtn: {
+    padding: 4
   }
 });
 

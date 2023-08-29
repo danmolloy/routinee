@@ -67,7 +67,7 @@ export default function EditActivity() {
       >
       {({ handleChange, handleBlur, handleSubmit, values }) => (
        <View style={styles.formikContainer}>
-        <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 20, marginVertical: 6}}>
+        <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 20, marginVertical: 6, color: selectedColor}}>
         Edit Activity
       </Text>
         <View           
@@ -214,8 +214,6 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 12,
     backgroundColor: "white",
-    borderColor: "black",
-    borderWidth: 1,
     borderRadius: 12,
     marginBottom: "50%"
 

@@ -47,6 +47,10 @@ export default function DataForm(props: DataFormProps) {
     let instance = activity?.instances.find(i => i.id === values.instanceId)
     let hastagsArr = values.hashtags.toLowerCase().split(" ").filter(i => i !== "" && i !== " ")
 
+    if (String(instance?.date) !== String(formDate)) {
+      dataObj.date = formDate
+    } 
+
     if (values.count > 0) {
       dataObj.count = values.count
     }
@@ -57,8 +61,9 @@ export default function DataForm(props: DataFormProps) {
       dataObj.hashtags = hastagsArr
     }
 
+
     if (Object.keys(dataObj).length > 0 && activity) {
-      String(instance?.date) !== String(formDate) ? dataObj.date = formDate : dataObj.date = instance?.date
+      dataObj.date = instance?.date
       dataObj.id = instanceId
       activity.instances = [...activity.instances.slice(0, -1), dataObj]
       /* const activityIndex = data.findIndex((i: any) => i.id === activityId)

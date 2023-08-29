@@ -113,8 +113,8 @@ export default function CreateActivity() {
         onSubmit={values => handleCreate({...values, color: selectedColor})}
       >
       {({ handleChange, handleBlur, handleSubmit, values }) => (
-       <View style={{...styles.formikContainer, borderColor: "black"}}>
-        <Text style={{fontFamily: "Raleway_700Bold", fontSize: 24, margin: 6, color: "black" }}>
+       <View style={{...styles.formikContainer, }}>
+        <Text style={{fontFamily: "Raleway_700Bold", fontSize: 24, margin: 6, color: selectedColor }}>
         Create Activity
       </Text>
         <View           
@@ -209,7 +209,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 12,
     marginBottom: "50%",
-    borderWidth: 1,
   },
 
   textInput: {

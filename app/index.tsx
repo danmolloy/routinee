@@ -81,45 +81,38 @@ export default function App() {
     return null;
   }
 
+  
+
   return (
     <ScrollView>
     <View style={styles.container} >
       {data.length > 0 
       ? data.map(i => (
-        <View key={i.id} style={i.id === addData?.activity && showForm === true ? {...styles.activityLarge, borderColor: i.color, borderWidth: 1 } : {...styles.activitySimple, backgroundColor: i.color}}>
+        <View key={i.id} style={i.id === addData?.activity && showForm === true ? {...styles.activityLarge } : {...styles.activitySimple, /* backgroundColor: i.color */}}>
         <Link 
         asChild
         href={{
           pathname: `/${[i.name.toLowerCase()]}`,
           params: { activity: i.name.toLowerCase() }
       }}>
-        <TouchableOpacity style={{...styles.activityHeader, backgroundColor: i.color}}>
+        <TouchableOpacity style={{...styles.activityHeader, /* backgroundColor: i.color */}}>
         
           <View>
-        <Text style={{fontSize: 20, color: "white", fontFamily:"Raleway_700Bold"}}>
+        <Text style={{fontSize: 20, color: i.color, fontFamily:"Raleway_700Bold"}}>
           {i.name}
         </Text>
         {i.instances.length === 0 
-        ? <Text style={{fontSize: 14, color: "white", fontFamily:"Raleway_500Medium"}}>No instances logged</Text>
-        : DateTime.fromISO(i.instances[i.instances.length - 1].date).hasSame(DateTime.now(), "day")
-        ? <Text style={{fontSize: 14, color: "white", fontFamily:"Raleway_500Medium"}}>Last instance: Today</Text>
-        : <Text style={{fontSize: 14, color: "white", fontFamily:"Raleway_500Medium"}}>Last instance: {String(DateTime.fromISO(i.instances[i.instances.length - 1].date).toFormat('dd LLL yyyy'))}</Text>}
+        ? <Text style={{fontSize: 14, fontFamily:"Raleway_500Medium"}}>No instances logged</Text>
+        : DateTime.fromISO(i.instances.sort((a, b) => a.date.localeCompare(b.date))[i.instances.length - 1].date).hasSame(DateTime.now(), "day")
+        ? <Text style={{fontSize: 14, fontFamily:"Raleway_500Medium"}}>Last instance: Today</Text>
+        : <Text style={{fontSize: 14, fontFamily:"Raleway_500Medium"}}>Last instance: {String(DateTime.fromISO(i.instances.sort((a, b) => a.date.localeCompare(b.date))[i.instances.length - 1].date).toFormat('dd LLL yyyy'))}</Text>}
         </View>
         <View style={styles.buttonsContainer}>
           {i.id === addData?.activity
           && <TouchableOpacity style={styles.activityButton} onPress={() => setShowForm(!showForm)} >
             <Feather size={20} name='edit' color={i.color} />
           </TouchableOpacity>}
-        {/* <Link 
-        asChild
-        href={{
-          pathname: `/${[i.name.toLowerCase()]}`,
-          params: { activity: i.name.toLowerCase() }
-      }}>
-        <TouchableOpacity style={styles.activityButton} onPress={() => {}} >
-        <Feather size={20} name="activity" color={i.color} />
-        </TouchableOpacity>
-      </Link> */}
+        
       <TouchableOpacity style={styles.activityButton} onPress={() => {handleClick(i.id)}} >
         <Feather size={20} name='check' color={i.color} />
       </TouchableOpacity>
@@ -136,6 +129,8 @@ export default function App() {
       </View>}
       <StatusBar style="auto" />
     </View>
+    <Text>
+    </Text>
     </ScrollView>
   );
 }

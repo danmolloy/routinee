@@ -24,12 +24,9 @@ export default function DayOverview(props: DayOverviewProps) {
 
   return (
     <View style={styles.container}>
-      <Text style={{fontFamily: "Raleway_700Bold", fontSize: 18, paddingVertical: 2}}>
-        {String(DateTime.fromISO(selectedDate).toFormat("EEE dd LLLL yyyy"))}
-      </Text>
-      <Text style={{fontFamily: "Raleway_500Medium", fontSize: 14, marginHorizontal: 0, marginBottom: 3}}>
-        {instances.length} instance{instances.length > 1 && "s"} logged.
-      </Text>
+      {instances.length === 0 && <Text style={{fontFamily: "Raleway_500Medium", fontSize: 14, marginHorizontal: 0, marginBottom: 3}}>
+        Nothing logged on this day.
+      </Text>}
       {instances.map(i => (
         <View key={i.id} style={styles.instanceContainer}>
           <Text style={{fontFamily: "Raleway_500Medium", fontSize: 16}}>
