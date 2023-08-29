@@ -9,6 +9,7 @@ import DataForm from '../components/dataform';
 import { DateTime } from "luxon"
 import { useFonts, Raleway_700Bold, Raleway_600SemiBold, Raleway_500Medium } from '@expo-google-fonts/raleway';
 import { ScrollView } from 'react-native-gesture-handler';
+import IndexOverview from '../components/indexOverview';
 
 
 export type ActivityInstance = {
@@ -85,6 +86,11 @@ export default function App() {
 
   return (
     <ScrollView>
+      <View style={styles.header}>
+        <Text style={styles.title}>
+          Your Activities
+        </Text>
+      </View> 
     <View style={styles.container} >
       {data.length > 0 
       ? data.map(i => (
@@ -128,9 +134,8 @@ export default function App() {
         <Text style={styles.helperText}>Click the help button (bottom right corner) to get started.</Text>
       </View>}
       <StatusBar style="auto" />
+      <IndexOverview data={data}/>
     </View>
-    <Text>
-    </Text>
     </ScrollView>
   );
 }
@@ -149,6 +154,14 @@ const activity = {
 
 
 const styles = StyleSheet.create({
+  header: {
+    padding: 12,
+  },
+  title: {
+    fontFamily: "Raleway_700Bold",
+    fontSize: 24,
+
+  },
   activityHeader: {
     display: "flex",
     flexDirection: "row",

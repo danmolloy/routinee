@@ -64,7 +64,9 @@ const styles = StyleSheet.create({
     paddingBottom: "25%"
   },
   instanceContainer: {
-    marginVertical: 12,
-    marginHorizontal: 12
+    marginVertical: 6,
+    marginHorizontal: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: "rgb(229 229 229)"
   }
 })
