@@ -414,10 +414,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   filterBtn: {
-    borderWidth: 1,
-    borderColor: "gray",
     padding: 8,
-    borderRadius: 20
+    borderRadius: 20,
+    backgroundColor: 'white',
+    shadowColor: 'rgb(30 64 175)',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: .2,
+    shadowRadius: 2,
+    elevation: 2,
   },
   editButtons: {
     borderColor: "rgb(203 213 225)",

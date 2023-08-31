@@ -95,10 +95,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 8
   },
   textContainer: {
-    backgroundColor: "#6366F1",
+    backgroundColor: "white",
     height: "100%",
     borderRadius: 12,
     padding: 12,
+    shadowColor: 'black',
+  shadowOffset: { width: 0, height: 1 },
+  shadowOpacity: 0.2,
+  shadowRadius: 2,
+  elevation: 2,
   },
   sectionContainer: {
     padding: 12,
@@ -108,12 +113,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     padding: 12,
     fontFamily: "Raleway_700Bold",
-    color: "white"
+    color: "#6366F1"
   },
   text: {
     paddingVertical: 12,
     fontFamily: "Raleway_600SemiBold",
-    color: "white",
+    color: "black",
     fontSize: 18
   },
   btnContainer: {

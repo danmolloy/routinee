@@ -17,6 +17,7 @@ export default function EditActivity() {
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('my-data');
+      jsonValue != null ? setSelectedColor(JSON.parse(jsonValue).find((i: ActivityType) => i.id === id).color) : null;
       return jsonValue != null ? setData(JSON.parse(jsonValue).find((i: ActivityType) => i.id === id)) : null;
     } catch (e) {
 
@@ -26,6 +27,7 @@ export default function EditActivity() {
 
   useEffect(() => {
     getData()
+    
   }, [])
 
   if (data === null) {

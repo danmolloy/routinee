@@ -10,7 +10,10 @@ import { DateTime } from "luxon"
 import { useFonts, Raleway_700Bold, Raleway_600SemiBold, Raleway_500Medium } from '@expo-google-fonts/raleway';
 import { ScrollView } from 'react-native-gesture-handler';
 import IndexOverview from '../components/indexOverview';
+import ActivityTab from '../components/activityTab';
 
+
+/* Lets do this */
 
 export type ActivityInstance = {
   date: string,
@@ -28,6 +31,8 @@ export type ActivityType = {
   color: string
 }
 
+
+
 export default function App() {
   const [data, setData] = useState<ActivityType[]>([])
   const [hashtagBox, setHashtagBox] = useState<string|null>(null)
@@ -39,7 +44,6 @@ export default function App() {
     Raleway_500Medium,
   });
 
-  
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('my-data');
@@ -94,41 +98,22 @@ export default function App() {
     <View style={styles.container} >
       {data.length > 0 
       ? data.map(i => (
-        <View key={i.id} style={i.id === addData?.activity && showForm === true ? {...styles.activityLarge } : {...styles.activitySimple, /* backgroundColor: i.color */}}>
-        <Link 
-        asChild
-        href={{
-          pathname: `/${[i.name.toLowerCase()]}`,
-          params: { activity: i.name.toLowerCase() }
-      }}>
-        <TouchableOpacity style={{...styles.activityHeader, /* backgroundColor: i.color */}}>
-        
-          <View>
-        <Text style={{fontSize: 20, color: i.color, fontFamily:"Raleway_700Bold"}}>
-          {i.name}
-        </Text>
-        {i.instances.length === 0 
-        ? <Text style={{fontSize: 14, fontFamily:"Raleway_500Medium"}}>No instances logged</Text>
-        : DateTime.fromISO(i.instances.sort((a, b) => a.date.localeCompare(b.date))[i.instances.length - 1].date).hasSame(DateTime.now(), "day")
-        ? <Text style={{fontSize: 14, fontFamily:"Raleway_500Medium"}}>Last instance: Today</Text>
-        : <Text style={{fontSize: 14, fontFamily:"Raleway_500Medium"}}>Last instance: {String(DateTime.fromISO(i.instances.sort((a, b) => a.date.localeCompare(b.date))[i.instances.length - 1].date).toFormat('dd LLL yyyy'))}</Text>}
+        <View key={i.id} style={{width: "100%", marginVertical: 8, borderRadius: 8,  flex: 1, alignItems: "center",    shadowColor: 'rgb(30 64 175)',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: .2,
+        shadowRadius: 2,
+        elevation: 2, backgroundColor: "white"}}>
+        <ActivityTab 
+        activity={i}
+        addData={addData}
+        showForm={showForm}
+        setShowForm={(arg) => setShowForm(arg)}
+        getData={() => getData}
+        setAddData={(arg) => setAddData}
+        data={data}
+        handleClick={(arg) => handleClick(arg)}
+        />
         </View>
-        <View style={styles.buttonsContainer}>
-          {i.id === addData?.activity
-          && <TouchableOpacity style={styles.activityButton} onPress={() => setShowForm(!showForm)} >
-            <Feather size={20} name='edit' color={i.color} />
-          </TouchableOpacity>}
-        
-      <TouchableOpacity style={styles.activityButton} onPress={() => {handleClick(i.id)}} >
-        <Feather size={20} name='check' color={i.color} />
-      </TouchableOpacity>
-      </View>
-      </TouchableOpacity>
-      </Link>
-
-      {i.id === addData?.activity && showForm === true
-      && <DataForm color={i.color} setShowForm={(bool) => setShowForm(bool)} getData={() => getData()} setAddData={data => setAddData(data)} data={data} activityId={addData.activity} instanceId={addData.instance} />}
-      </View>
       ))
       : <View style={styles.helperContainer}>
         <Text style={styles.helperText}>Click the help button (bottom right corner) to get started.</Text>
@@ -154,6 +139,9 @@ const activity = {
 
 
 const styles = StyleSheet.create({
+  box: {
+    borderWidth: 4,
+  },
   header: {
     padding: 12,
   },
@@ -191,7 +179,6 @@ const styles = StyleSheet.create({
     padding: 12,
     backgroundColor: "white",
     paddingBottom: "50%",
-    
   },
   activityLarge: {
     ...activity,

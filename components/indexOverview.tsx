@@ -2,9 +2,11 @@ import { useFonts, Raleway_700Bold, Raleway_600SemiBold, Raleway_500Medium } fro
 import { Feather } from '@expo/vector-icons';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
-import { StyleSheet, Text, View } from "react-native";
+import { Animated, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ActivityType } from '../app';
+import * as Animatable from 'react-native-animatable';
+
 
 type IndexOverviewProps = {
   data: ActivityType[]
@@ -83,16 +85,35 @@ export default function IndexOverview(props: IndexOverviewProps) {
         <View style={styles.daysContainer}>
         {daysOfWeekArr(selectedDate).map(i => (
           <View key={String(i.date)} style={{ width:32, }}>
-            <Text style={{textAlign: "center"}}>
+            {
+              i.date.hasSame(DateTime.now(), 'day') 
+              ? <Text style={{textAlign: "center", fontWeight: "bold" }}>
+              {String(i.date.toFormat("EEE"))}
+              </Text>
+              : i.date > DateTime.now()
+              ?<Text style={{textAlign: "center", color: "rgb(212 212 212)" }}>
+              {String(i.date.toFormat("EEE"))}
+              </Text>
+              : <Text style={{textAlign: "center", }}>
               {String(i.date.toFormat("EEE"))}
             </Text>
+            }
           </View>
         ))}
         </View>
       {data.map(i => (
         <View key={i.id} style={styles.activitiesContainer}>
           {getWeekArr(selectedDate, i).map(j => (
-          <View key={j.date} style={{...styles.square, backgroundColor: j.squareColor}} />
+            j.squareColor !== "white"
+            ? <Animatable.View
+     
+            animation={"bounceIn"}
+            duration={1000}
+            iterationCount={1}
+            >
+              <View key={j.date} style={{...styles.square, backgroundColor: j.squareColor}} />
+              </Animatable.View>
+            : <View key={j.date} style={{...styles.square, backgroundColor: j.squareColor}} />
         ))}
         </View>
       ))}
@@ -142,7 +163,18 @@ const styles = StyleSheet.create({
     marginVertical: "25%",
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: "white",
+    paddingHorizontal: 4,
+    paddingTop: 12,
+    paddingBottom: 32,
+
+    borderRadius: 12,
+    shadowColor: 'black',
+  shadowOffset: { width: 0, height: 1 },
+  shadowOpacity: 0.2,
+  shadowRadius: 2,
+  elevation: 2,
   },
   dayHeader: {
     flex: 1, 
@@ -152,7 +184,7 @@ const styles = StyleSheet.create({
     padding: 12
   },
   navigateDayBtn: {
-    padding: 4
+    padding: 8,
   }
   
 })
