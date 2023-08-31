@@ -3,6 +3,8 @@ import { useFonts, Raleway_700Bold, Raleway_600SemiBold, Raleway_500Medium } fro
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import * as Animatable from 'react-native-animatable';
+import { Image } from "expo-image"
 
 const helpArr = [
   {
@@ -40,12 +42,22 @@ export default function HelpCenter() {
     Raleway_600SemiBold, 
     Raleway_500Medium,
   });
+  const [fadeInOut, setFadeInOut] = useState("")
 
   const handlePress = (operator: string) => {
     if (operator === "+" && pageIndex < helpArr.length - 1) {
-      setPageIndex(pageIndex + 1)
+      setFadeInOut("fadeOutLeftBig")
+      setTimeout(() => {
+        setPageIndex(pageIndex + 1)
+        setFadeInOut("fadeInRightBig")
+      }, 500)
     } else if (operator === "-" && pageIndex > 0) {
-      setPageIndex(pageIndex - 1)
+      setFadeInOut("fadeOutRightBig")
+
+      setTimeout(() => {
+        setPageIndex(pageIndex - 1)
+        setFadeInOut("fadeInLeftBig")
+      }, 500)
     } else {
       return;
     }
@@ -58,6 +70,11 @@ export default function HelpCenter() {
 
   return (
     <ScrollView style={styles.container}>
+      <Image style={styles.image} source={require('../assets/character.png')}/>
+      <Animatable.View 
+        animation={fadeInOut}
+        duration={500}
+        iterationCount={1}>
       <View style={styles.textContainer}>
       <View>
         <Text style={styles.header}>
@@ -71,6 +88,7 @@ export default function HelpCenter() {
           </Text>
         ))}
       </View>
+      
       <View style={styles.btnContainer}>
         <TouchableOpacity onPress={() => handlePress("-")} style={styles.navBtn}>
           <Feather size={32} name="chevron-left" color={"#F59E0B"}/>
@@ -83,6 +101,7 @@ export default function HelpCenter() {
         </TouchableOpacity>
       </View>
       </View>
+      </Animatable.View>
     </ScrollView>
   )
 }
@@ -95,6 +114,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 8
   },
   textContainer: {
+    marginTop: -56,
     backgroundColor: "white",
     height: "100%",
     borderRadius: 12,
@@ -104,6 +124,8 @@ const styles = StyleSheet.create({
   shadowOpacity: 0.2,
   shadowRadius: 2,
   elevation: 2,
+  zIndex: 1,
+
   },
   sectionContainer: {
     padding: 12,
@@ -137,5 +159,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 10,
     
-  }
+  },
+  image: {
+    marginTop: -10,
+
+    width: 100, 
+    height: 100, 
+  },
 })

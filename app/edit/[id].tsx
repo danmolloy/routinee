@@ -8,6 +8,7 @@ import { FieldArray, Formik } from "formik";
 import { ScrollView } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import { colorArr } from "../create";
+import { DateTime } from "luxon";
 
 export default function EditActivity() {
   const { id } = useLocalSearchParams();
@@ -102,44 +103,6 @@ export default function EditActivity() {
             maxLength={150}
          />
          </View>
-          <View style={styles.inputContainer}>
-         <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 16}}>
-          Instances
-         </Text>
-         <FieldArray name="instances">
-          {({insert, remove, push}: any) => (
-          <ScrollView style={styles.instancesScrollView}>
-          {values.instances.length < 1 
-          ? <Text style={{fontFamily: "Raleway_500Medium", fontSize: 14, margin: 6, color: "gray"}}>No instances</Text>
-          : values.instances.map((i, index) => (
-            <View style={styles.instanceView}>
-              <View style={{flex: 1, flexDirection: "row", alignItems: "center"}}>
-              <Text key={i.id} style={{fontSize: 16}}>
-                {i.date}
-              </Text>
-              <TouchableOpacity onPress={() => remove(index)}>
-              <Feather style={{color: "rgb(239 68 68)", paddingHorizontal: 4}} name="trash-2" />
-              </TouchableOpacity>
-              </View>
-              {i.count && <Text key={i.id} style={{fontSize: 12, marginLeft: 8}}>
-                Count: {i.count}
-              </Text>}
-              {i.hashtags && <Text key={i.id} style={{fontSize: 12, marginLeft: 8}}>
-                Hashtags: {JSON.stringify(i.hashtags)}
-              </Text>}
-              {i.notes && <Text key={i.id} style={{fontSize: 12, marginLeft: 8}}>
-                Notes: {i.notes}
-              </Text>}
-              {!i.count && !i.hashtags && !i.notes 
-              && <Text key={i.id} style={{fontSize: 12, marginLeft: 8}}>
-              No data
-            </Text>}
-            </View>
-          ))}
-          </ScrollView>
-          )}
-         </FieldArray>
-         </View>
          <View style={styles.inputContainer}>
           <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 16}}>
             Color
@@ -152,6 +115,49 @@ export default function EditActivity() {
             ))}
           </View>
           </View>
+          <View style={styles.instanceScrollContainer}>
+         <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 16}}>
+          Instances
+         </Text>
+         <FieldArray name="instances">
+          {({insert, remove, push}: any) => (
+          <ScrollView style={styles.instancesScrollView}>
+          {values.instances.length < 1 
+          ? <Text style={{fontFamily: "Raleway_500Medium", fontSize: 14, margin: 6, color: "gray"}}>No instances</Text>
+          : values.instances.map((i, index) => (
+            <View style={styles.instanceView}>
+              <View style={styles.instanceHeader}>
+              <Text key={i.id} style={{fontFamily: "Raleway_600SemiBold", fontSize: 18}}>
+                {DateTime.fromJSDate(new Date(i.date)).toFormat("EEEE dd LLL yyyy")}
+              </Text>
+              <TouchableOpacity onPress={() => remove(index)} style={{ padding: 4}}>
+              <Feather size={18} style={{color: "rgb(239 68 68)"}} name="trash-2" />
+              </TouchableOpacity>
+              </View>
+              {i.count && <Text key={i.id} style={styles.instanceText}>
+                Count: {i.count}
+              </Text>}
+              {i.hashtags && <Text key={i.id} style={styles.instanceText}>
+                {i.hashtags.map(i => (
+                  <Text key={i}>
+                    #{i}
+                  </Text>
+                ))}
+              </Text>}
+              {i.notes && <Text key={i.id} style={styles.instanceText}>
+                Notes: {i.notes}
+              </Text>}
+              {!i.count && !i.hashtags && !i.notes 
+              && <Text key={i.id} style={{...styles.instanceText, color: "gray"}}>
+              No data
+            </Text>}
+            </View>
+          ))}
+          </ScrollView>
+          )}
+         </FieldArray>
+         </View>
+         
          <TouchableOpacity style={styles.submitButton} onPress={() => handleSubmit()}>
           <Text style={{fontFamily: "Raleway_500Medium", color: "rgb(59 130 246)"}}>
             Submit
@@ -168,6 +174,18 @@ export default function EditActivity() {
 
 
 const styles = StyleSheet.create({
+  instanceScrollContainer: {
+    width: "100%"
+  },
+  instanceContainer: {
+
+  },
+  instanceHeader: {
+    flex: 1, 
+    flexDirection: "row",
+    alignItems: "center", 
+    justifyContent: "space-between"
+  },
   colorPickerContainer: {
     flex: 1, 
     flexDirection: "row",
@@ -186,7 +204,6 @@ const styles = StyleSheet.create({
   instancesScrollView: {
     flex: 1, 
     borderColor: "rgb(203 213 225)",
-    borderWidth: 1,
     padding: 4,
     borderRadius: 5,
     width: "100%",
@@ -197,8 +214,20 @@ const styles = StyleSheet.create({
   instanceView: {
     flex: 1,
     flexDirection: "column",
-    padding: 4,
-    backgroundColor: "white"
+    padding: 8,
+    margin: 4,
+    backgroundColor: "white",
+    borderRadius: 12,
+    shadowColor: 'rgb(30 64 175)',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  instanceText: {
+    fontFamily: "Raleway_500Medium",
+    fontSize: 16,
+    margin: 4,
   },
   heading: {
     fontSize: 20
@@ -215,9 +244,14 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     width: "100%",
     padding: 12,
-    backgroundColor: "white",
     borderRadius: 12,
-    marginBottom: "50%"
+    marginBottom: "50%",
+    shadowColor: 'rgb(30 64 175)',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
+    backgroundColor: "white"
 
   },
 

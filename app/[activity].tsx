@@ -12,6 +12,8 @@ import { Feather } from "@expo/vector-icons";
 import InvertibleScrollView from 'react-native-invertible-scroll-view';
 import Loading from "../components/loading";
 import { colorPalettes } from "./create";
+import * as Animatable from 'react-native-animatable';
+
 
 const monthsArr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
@@ -183,11 +185,22 @@ export default function Activity() {
             {data.name}
           </Text>
         </Link>
+        {showFilters 
+          ?<Animatable.View
+        animation={"rubberBand"}
+        duration={500}
+        iterationCount={1}
+        >
+          <TouchableOpacity onPress={() => handleShowFilter()} style={styles.filterBtn}>
+            <Feather color={data.color} size={20} name="hash" />
+          </TouchableOpacity>
+        </Animatable.View>
+        :
         <TouchableOpacity onPress={() => handleShowFilter()} style={styles.filterBtn}>
-          {showFilters 
-          ? <Feather color={data.color} size={20} name="x" />
-          : <Feather color={data.color} size={20} name="hash" />}
+           <Feather color={data.color} size={20} name="hash" />
         </TouchableOpacity>
+        }
+
         </View>
       <View style={styles.hashtagsAndBlurb}>
       {showFilters && 
@@ -433,10 +446,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "white",
     shadowColor: 'rgb(30 64 175)',
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: { width: 0, height: .5 },
     shadowOpacity: 0.2,
-    shadowRadius: 2,
+    shadowRadius: 1,
     elevation: 2,
   },
   buttonsContainer: {
