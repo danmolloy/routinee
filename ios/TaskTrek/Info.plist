@@ -8,7 +8,7 @@
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleDisplayName</key>
     <string>TaskTrek</string>
-		<key>CFBundleIcons</key>
+    <key>CFBundleIcons</key>
     <dict>
         <key>CFBundlePrimaryIcon</key>
         <dict>

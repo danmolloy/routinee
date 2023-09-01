@@ -142,7 +142,18 @@ export default function Activity() {
     } else if (numInstances === 1) {
       styleObj.backgroundColor = palette ? palette.light : data?.color
     } else {
-      styleObj.backgroundColor = "rgb(229 229 229)"    
+      styleObj.backgroundColor = "rgb(229 229 229)"
+      /* The code below is for screenshot purposes */
+      /* let randInt = Math.floor(Math.random() * 4)
+      randInt === 0 
+      ? styleObj.backgroundColor =  palette?.primary
+      : randInt === 1
+      ? styleObj.backgroundColor = palette?.light
+      : randInt === 2
+      ? styleObj.backgroundColor = palette?.dark
+      : palette && randInt === 3
+      ? styleObj.backgroundColor = palette.darkest
+      :styleObj.backgroundColor = "rgb(229 229 229)"  */
     }
 
     return styleObj

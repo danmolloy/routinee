@@ -63,7 +63,7 @@ export default function DataForm(props: DataFormProps) {
 
 
     if (Object.keys(dataObj).length > 0 && activity) {
-      dataObj.date = instance?.date
+      dataObj.date = DateTime.fromJSDate(newDate).toFormat('yyyy-MM-dd')
       dataObj.id = instanceId
       activity.instances = [...activity.instances.slice(0, -1), dataObj]
       /* const activityIndex = data.findIndex((i: any) => i.id === activityId)
@@ -118,7 +118,6 @@ export default function DataForm(props: DataFormProps) {
          <Text style={{...styles.inputLabel, color: color}}>
           Date 
          </Text>
-         
           
           <DateTimePicker style={styles.datePicker} value={newDate} onChange={onDateChange}/>
          </View>

@@ -40,7 +40,8 @@ export default function IndexOverview(props: IndexOverviewProps) {
       let instancesBool = data.instances.find(i => i.date === formattedDate)
       weekArr[i] = {
         date: formattedDate,
-        squareColor: instancesBool ? data.color : "white"
+        squareColor: instancesBool ? data.color : "white" 
+        //squareColor: Math.random() > 0.2 ? data.color : "white" // Screenshot purposes only
       }
     }
     return weekArr;
