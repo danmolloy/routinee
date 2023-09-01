@@ -6,6 +6,7 @@ import { Animated, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ActivityType } from '../app';
 import * as Animatable from 'react-native-animatable';
+import { Link } from 'expo-router';
 
 
 type IndexOverviewProps = {
@@ -111,7 +112,18 @@ export default function IndexOverview(props: IndexOverviewProps) {
             duration={1000}
             iterationCount={1}
             >
-              <View  style={{...styles.square, backgroundColor: j.squareColor}} />
+              <View  style={{...styles.square, backgroundColor: j.squareColor}}>
+              <Link
+              style={{width: "100%", height: "100%", }}
+              href={{
+                pathname: `/${[i.name.toLowerCase()]}`,
+                params: { activity: i.name.toLowerCase() }
+            }}
+              >
+                
+
+              </Link>
+              </View>
               </Animatable.View>
             : <View key={j.date} style={{...styles.square, backgroundColor: j.squareColor}} />
         ))}
@@ -159,8 +171,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly"
   },
   container: {
+    marginTop: -54,
     width: "100%",
-    marginVertical: "15%",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
@@ -181,7 +193,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
-    padding: 12
   },
   navigateDayBtn: {
     padding: 8,

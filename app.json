@@ -15,7 +15,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.danmolloy.habit",
       "runtimeVersion": "8",
       "buildNumber": "8"
@@ -27,7 +27,8 @@
       },
       "runtimeVersion": {
         "policy": "appVersion"
-      }
+      },
+      "package": "com.danmolloy.habit"
     },
     "scheme": "myapp",
     "web": {

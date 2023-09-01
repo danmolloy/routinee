@@ -132,7 +132,12 @@ export default function App() {
       </View>
       }
       <StatusBar style="auto" />
-      {data.length > 0  && <IndexOverview data={data}/>}
+      {data.length > 0  && 
+      <View style={styles.overViewContainer}>
+        <Image style={{...styles.image, alignSelf: "center"}} source={require('../assets/character.png')}/>
+      <IndexOverview data={data}/>
+      </View>
+      }
     </View>
     </Animatable.View>
     </ScrollView>
@@ -153,6 +158,9 @@ const activity = {
 
 
 const styles = StyleSheet.create({
+  overViewContainer: {
+    marginVertical: "15%",
+  },
   box: {
     borderWidth: 4,
   },
