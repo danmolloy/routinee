@@ -28,10 +28,18 @@ const helpArr = [
   {
     header: "Viewing your data",
     info: [
-      "View the data of your instance by clicking the activity name. The data page contains a month view calendar or a year-long heat chart.",
-      "Select a day on the calendar/heat chart to view a list of instances you logged that day.",
+      "View the data of your instance by clicking the activity name. The data page contains a year-long heat chart and month view calendar.",
+      "Select a day on the calendar/heat chart to view a list of instances you logged that day. On the heat chart, days with multiple instances appear darker.",
       "You can also filter your instances by the hashtags you've added.",
       "Additionally, you can edit the activity (and it's instances) or delete it."
+    ]
+  },
+  {
+    header: "Enjoy your journey",
+    info: [
+      "Doing a little bit each day is the most effective way to acquire a new skill or reach a goal.",
+      "Don't lose sight of what you're aiming for and remember to enjoy your journey.",
+      /* "If you find this app helpful, please consider giving it a review." */
     ]
   }
 ]
