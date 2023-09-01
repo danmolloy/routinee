@@ -106,12 +106,12 @@ export default function IndexOverview(props: IndexOverviewProps) {
           {getWeekArr(selectedDate, i).map(j => (
             j.squareColor !== "white"
             ? <Animatable.View
-     
+            key={j.date}
             animation={"bounceIn"}
             duration={1000}
             iterationCount={1}
             >
-              <View key={j.date} style={{...styles.square, backgroundColor: j.squareColor}} />
+              <View  style={{...styles.square, backgroundColor: j.squareColor}} />
               </Animatable.View>
             : <View key={j.date} style={{...styles.square, backgroundColor: j.squareColor}} />
         ))}

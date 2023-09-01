@@ -11,6 +11,8 @@ import { useFonts, Raleway_700Bold, Raleway_600SemiBold, Raleway_500Medium } fro
 import { ScrollView } from 'react-native-gesture-handler';
 import IndexOverview from '../components/indexOverview';
 import ActivityTab from '../components/activityTab';
+import { Image } from 'expo-image';
+import * as Animatable from 'react-native-animatable';
 
 
 /* Lets do this */
@@ -86,10 +88,14 @@ export default function App() {
     return null;
   }
 
-  
+
 
   return (
     <ScrollView>
+      <Animatable.View 
+    animation={"fadeIn"}
+    duration={500}
+    iterationCount={1}>
       <View style={styles.header}>
         <Text style={styles.title}>
           Your Activities
@@ -115,12 +121,20 @@ export default function App() {
         />
         </View>
       ))
-      : <View style={styles.helperContainer}>
-        <Text style={styles.helperText}>Click the help button (bottom right corner) to get started.</Text>
-      </View>}
+      : 
+      <View>
+              <Image style={styles.image} source={require('../assets/character.png')}/>
+
+      <View style={styles.helperContainer}>
+        <Text style={{...styles.helperText, fontFamily: "Raleway_700Bold", color: "rgb(99 102 241)"}}>No activities found.</Text>
+        <Text style={{...styles.helperText, fontFamily: "Raleway_600SemiBold",}}>Click the help button (bottom right corner) to get started.</Text>
+      </View>
+      </View>
+      }
       <StatusBar style="auto" />
-      <IndexOverview data={data}/>
+      {data.length > 0  && <IndexOverview data={data}/>}
     </View>
+    </Animatable.View>
     </ScrollView>
   );
 }
@@ -216,15 +230,27 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   helperText: {
-    fontFamily: "Raleway_600SemiBold",
     fontSize: 18,
     textAlign: "center",
-    padding: 24,
-    color: "white"
+    padding: 12,
   },
   helperContainer: {
-    backgroundColor: "rgb(168 85 247)",
+    padding: 12,
+    backgroundColor: "white",
     marginVertical: "30%",
-    borderRadius: 12
-  }
+    borderRadius: 12,
+    shadowColor: 'rgb(30 64 175)',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
+    zIndex: 1,
+    marginTop: -56
+  },
+  image: {
+    marginTop: 40,
+    
+    width: 100, 
+    height: 100, 
+  },
 });

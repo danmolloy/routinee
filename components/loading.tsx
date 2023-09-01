@@ -7,7 +7,7 @@ export default function Loading() {
     <View style={styles.loadingView}>
       <Image style={styles.image} source={require('../assets/character.png')}/>
 
-      <Text style={{ fontSize: 20, color: "black" }}>Loading..</Text>
+      <Text style={{ fontSize: 20, color: "black", }}>Loading..</Text>
     </View>
   )
 }

@@ -6,6 +6,7 @@ import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import * as Animatable from 'react-native-animatable';
 import { Image } from "expo-image"
 
+
 const helpArr = [
   {
     header: "Create Activity",
@@ -70,6 +71,10 @@ export default function HelpCenter() {
 
   return (
     <ScrollView style={styles.container}>
+       <Animatable.View 
+    animation={"fadeIn"}
+    duration={500}
+    iterationCount={1}>
       <Image style={styles.image} source={require('../assets/character.png')}/>
       <Animatable.View 
         animation={fadeInOut}
@@ -101,6 +106,7 @@ export default function HelpCenter() {
         </TouchableOpacity>
       </View>
       </View>
+      </Animatable.View>
       </Animatable.View>
     </ScrollView>
   )

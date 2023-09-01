@@ -12,6 +12,8 @@ export default function Layout() {
       <View style={styles.header}>
         
       </View>
+      
+      
       <Slot />
       <View style={styles.footer}>
         <Link href="/" asChild>

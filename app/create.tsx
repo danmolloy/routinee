@@ -7,6 +7,7 @@ import { router } from "expo-router";
 import { ActivityType } from ".";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import CustomData from "../components/CustomData";
+import * as Animatable from 'react-native-animatable';
 
 export const colorArr = ["rgb(74 222 128)", "rgb(168 85 247)", "rgb(244 63 94)",  "rgb(34 211 238)", "rgb(99 102 241)", "rgb(244 114 182)", "rgb(245 158 11)"]
 
@@ -103,6 +104,10 @@ export default function CreateActivity() {
 
   return (
     <ScrollView style={styles.container} onTouchStart={Keyboard.dismiss}>
+      <Animatable.View 
+    animation={"fadeIn"}
+    duration={500}
+    iterationCount={1}>
       <Formik
         initialValues={{
            name: '',
@@ -120,7 +125,7 @@ export default function CreateActivity() {
         <View           
           style={styles.inputContainer}
         >
-         <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 18, color: ""}}>
+         <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 18, }}>
           Activity
          </Text>
          <TextInput
@@ -171,6 +176,7 @@ export default function CreateActivity() {
      )}
       </Formik>
       {/* <CustomData /> */}
+      </Animatable.View>
     </ScrollView>
   )
 }

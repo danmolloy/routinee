@@ -178,6 +178,10 @@ export default function Activity() {
   }
   return (
     <ScrollView style={styles.scrollContainer}>
+      <Animatable.View 
+    animation={"fadeIn"}
+    duration={2000}
+    iterationCount={1}>
       <View style={styles.container}>
       <View style={styles.header}>
         <Link href={"/"}>
@@ -303,6 +307,7 @@ export default function Activity() {
         </TouchableOpacity>
       </View>
       </View>
+      </Animatable.View>
     </ScrollView>
   )
 }
