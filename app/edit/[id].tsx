@@ -124,7 +124,7 @@ export default function EditActivity() {
           <ScrollView style={styles.instancesScrollView}>
           {values.instances.length < 1 
           ? <Text style={{fontFamily: "Raleway_500Medium", fontSize: 14, margin: 6, color: "gray"}}>No instances</Text>
-          : values.instances.map((i, index) => (
+          : values.instances.reverse().map((i, index) => (
             <View style={styles.instanceView} key={i.id}>
               <View style={styles.instanceHeader}>
               <Text key={i.id} style={{fontFamily: "Raleway_600SemiBold", fontSize: 18}}>
