@@ -66,11 +66,6 @@ export default function IndexOverview(props: IndexOverviewProps) {
 
   return (
     <View style={styles.container}>
-      {/* <View style={styles.header}>
-        <Text style={styles.title}>
-          Week Overview
-        </Text>
-      </View> */}
       <View>
       <View style={styles.dayHeader}>
         <TouchableOpacity style={styles.navigateDayBtn} onPress={() => selectDate("minus")}>
@@ -104,7 +99,12 @@ export default function IndexOverview(props: IndexOverviewProps) {
         ))}
         </View>
       {data.map(i => (
+
         <View key={i.id} style={styles.activitiesContainer}>
+          <Text style={{...styles.activityTitle, color: i.color}}>
+            {i.name}
+          </Text>
+          <View style={styles.activityDotsContainer}>
           {getWeekArr(selectedDate, i).map(j => (
             j.squareColor !== "white"
             ? <Animatable.View
@@ -128,6 +128,7 @@ export default function IndexOverview(props: IndexOverviewProps) {
               </Animatable.View>
             : <View key={j.date} style={{...styles.square, backgroundColor: j.squareColor}} />
         ))}
+        </View>
         </View>
       ))}
       </View>
@@ -166,21 +167,32 @@ const styles = StyleSheet.create({
   },
   activitiesContainer: {
     flex: 1,
+    flexDirection: "column",
+    alignSelf: "center",
+    width: "100%",
+    justifyContent: "space-evenly"
+  },
+  activityDotsContainer: {
+    marginTop: -8,
+    flex: 1,
     flexDirection: "row",
     alignSelf: "center",
     width: "100%",
     justifyContent: "space-evenly"
   },
+  activityTitle: {
+    marginLeft: 4,
+    fontSize: 20,
+    fontFamily: "Raleway_700Bold"
+  },
   container: {
-    marginTop: -54,
     width: "100%",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white",
     paddingHorizontal: 4,
-    paddingTop: 12,
-    paddingBottom: 32,
+    paddingBottom: 12,
 
     borderRadius: 12,
     shadowColor: 'black',

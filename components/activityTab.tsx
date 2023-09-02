@@ -39,7 +39,7 @@ export default function ActivityTab(props: ActivityTabProps) {
 
 
   return (
-    <View style={/*  activity.id === addData?.activity && showForm === true ? {...styles.activityLarge, borderColor: colorInterpolation } :  */ {...styles.activitySimple, }}>
+    <View style={ activity.id === addData?.activity && showForm === true ? {...styles.activityLarge} : {...styles.activitySimple, }}>
         <Link 
         asChild
         style={{width: "100%"}}
@@ -113,6 +113,11 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 4,
   },
+  activityLarge: {
+    borderRadius: 5,
+    width: "100%",
+    padding: 4,
+  },
   activityHeader: {
     flex: 1,
     flexDirection: "row",
@@ -141,6 +146,5 @@ const styles = StyleSheet.create({
     shadowOpacity: .2,
     shadowRadius: 2,
     elevation: 2,
-
   },
 });

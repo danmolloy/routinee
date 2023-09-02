@@ -91,19 +91,23 @@ export default function App() {
 
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.scrollContainer}>
       <Animatable.View 
     animation={"fadeIn"}
     duration={500}
-    iterationCount={1}>
+    iterationCount={1}
+    style={styles.animatableView}
+    >
       <View style={styles.header}>
         <Text style={styles.title}>
           Your Activities
         </Text>
       </View> 
     <View style={styles.container} >
+      
       {data.length > 0 
-      ? data.map(i => (
+      ? <View style={styles.activitesContainer}>
+        {data.map(i => (
         <View key={i.id} style={{width: "100%", marginVertical: 8, borderRadius: 8,  flex: 1, alignItems: "center",    shadowColor: 'rgb(30 64 175)',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: .2,
@@ -115,12 +119,13 @@ export default function App() {
         showForm={showForm}
         setShowForm={(arg) => setShowForm(arg)}
         getData={() => getData}
-        setAddData={(arg) => setAddData}
+        setAddData={(arg) => setAddData(arg)}
         data={data}
         handleClick={(arg) => handleClick(arg)}
         />
         </View>
-      ))
+      ))}
+      </View>
       : 
       <View>
               <Image style={styles.image} source={require('../assets/character.png')}/>
@@ -134,7 +139,10 @@ export default function App() {
       <StatusBar style="auto" />
       {data.length > 0  && 
       <View style={styles.overViewContainer}>
+        <View style={styles.overviewHeadContainer}>
+        <Text style={styles.overviewTitle}>Overview</Text>
         <Image style={{...styles.image, alignSelf: "center"}} source={require('../assets/character.png')}/>
+        </View>
       <IndexOverview data={data}/>
       </View>
       }
@@ -158,9 +166,20 @@ const activity = {
 
 
 const styles = StyleSheet.create({
-  overViewContainer: {
-    marginVertical: "15%",
+  overviewTitle: {
+    fontFamily: "Raleway_700Bold",
+    fontSize: 24,
   },
+  overViewContainer: {
+    marginTop: "20%",
+    paddingBottom: "25%",
+  },
+  overviewHeadContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  
   box: {
     borderWidth: 4,
   },
@@ -194,26 +213,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     color: "black",
-    alignItems: 'center',
+    alignItems: "flex-start",
     justifyContent: "flex-start",
-    height: "85%",
+    overflow: "scroll",
     width: "100%",
     padding: 12,
     backgroundColor: "white",
-    paddingBottom: "50%",
+    //paddingBottom: "50%",
   },
-  activityLarge: {
-    ...activity,
-    backgroundColor: "white",
-    display: "flex",
+  activitesContainer: {
+    width: "100%",
+    flex: 1,
     flexDirection: "column",
-    width: "95%",    
-    height: "auto",
-    flexGrow: 1,
-    marginVertical: 8,
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 10,
+  },
+  scrollContainer: {
+    /* paddingBottom: "50%", */
+    flex: 1,
+  },
+  animatableView: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "flex-start",
   },
   buttonsContainer: {
     display: "flex",
@@ -256,8 +276,7 @@ const styles = StyleSheet.create({
     marginTop: -56
   },
   image: {
-    marginTop: 40,
-    
+    marginBottom: -54,
     width: 100, 
     height: 100, 
   },

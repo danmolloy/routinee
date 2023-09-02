@@ -194,8 +194,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: "flex-start",
     width: "100%",
-    padding: 12,    minHeight: "50%"
-
+    padding: 12,    
   },
 
   textInput: {
