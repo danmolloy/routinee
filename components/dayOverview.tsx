@@ -23,7 +23,7 @@ export default function DayOverview(props: DayOverviewProps) {
   }
 
   return (
-    <View style={styles.container}>
+    <View testID="day-overview" style={styles.container}>
       {instances.length === 0 && <Text style={{fontFamily: "Raleway_500Medium", fontSize: 14, marginHorizontal: 0, marginBottom: 3}}>
         Nothing logged on this day.
       </Text>}
@@ -37,15 +37,15 @@ export default function DayOverview(props: DayOverviewProps) {
             No information
           </Text>}
           {i.count 
-          && <Text style={{fontFamily: "Raleway_500Medium", fontSize: 14, marginHorizontal: 12, marginVertical: 6}}>
+          && <Text testID={`${i.id}-count`} style={{fontFamily: "Raleway_500Medium", fontSize: 14, marginHorizontal: 12, marginVertical: 6}}>
             Count: {i.count}
           </Text>}
           {i.notes 
-          && <Text style={{fontFamily: "Raleway_500Medium", fontSize: 14, marginHorizontal: 12, marginVertical: 6}}>
-            Notes: {i.notes ? i.notes : "n/a"}
+          && <Text testID={`${i.id}-notes`} style={{fontFamily: "Raleway_500Medium", fontSize: 14, marginHorizontal: 12, marginVertical: 6}}>
+            {i.notes ? i.notes : "No notes logged"}
           </Text>}
           {i.hashtags 
-          && <Text style={{fontFamily: "Raleway_500Medium", fontSize: 14, marginHorizontal: 12, marginVertical: 6}}>
+          && <Text testID={`${i.id}-hashtags`} style={{fontFamily: "Raleway_500Medium", fontSize: 14, marginHorizontal: 12, marginVertical: 6}}>
             {i.hashtags && i.hashtags.length > 0 ? [...i.hashtags.map(i => (
               <Text key={i}>
                 {`#${i} `}

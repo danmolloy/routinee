@@ -9,7 +9,7 @@ import * as Animatable from 'react-native-animatable';
 import { Link } from 'expo-router';
 
 
-type IndexOverviewProps = {
+export type IndexOverviewProps = {
   data: ActivityType[]
 }
 
@@ -68,13 +68,13 @@ export default function IndexOverview(props: IndexOverviewProps) {
     <View style={styles.container}>
       <View>
       <View style={styles.dayHeader}>
-        <TouchableOpacity style={styles.navigateDayBtn} onPress={() => selectDate("minus")}>
+        <TouchableOpacity testID='nav-back' style={styles.navigateDayBtn} onPress={() => selectDate("minus")}>
           <Feather name="chevron-left" />
         </TouchableOpacity>
-        <Text style={{fontFamily: "Raleway_700Bold", fontSize: 18, paddingVertical: 2}}>
+        <Text testID='week-title' style={{fontFamily: "Raleway_700Bold", fontSize: 18, paddingVertical: 2}}>
           Week of {String(DateTime.fromISO(selectedDate).toFormat("dd LLLL yyyy"))}
         </Text>
-        <TouchableOpacity style={styles.navigateDayBtn} onPress={() => selectDate("plus")}>
+        <TouchableOpacity testID='nav-forward' style={styles.navigateDayBtn} onPress={() => selectDate("plus")}>
           <Feather name="chevron-right" />
         </TouchableOpacity>
       </View>
@@ -122,7 +122,6 @@ export default function IndexOverview(props: IndexOverviewProps) {
             }}
               >
                 
-
               </Link>
               </View>
               </Animatable.View>

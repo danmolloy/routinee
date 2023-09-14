@@ -4,9 +4,8 @@ import { Image } from 'expo-image';
 export default function Loading() {
 
   return (
-    <View style={styles.loadingView}>
-      <Image style={styles.image} source={require('../assets/character.png')}/>
-
+    <View testID="loading-view" style={styles.loadingView}>
+      <Image testID="mr-task-trek" style={styles.image} source={require('../assets/character.png')}/>
       <Text style={{ fontSize: 20, color: "black", }}>Loading..</Text>
     </View>
   )

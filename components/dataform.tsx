@@ -113,6 +113,7 @@ export default function DataForm(props: DataFormProps) {
           Add Data
         </Text> */}
         <View 
+        testID="date-input-view"
           style={styles.inputContainer}
          >
          <Text style={{...styles.inputLabel, color: color}}>
@@ -122,7 +123,8 @@ export default function DataForm(props: DataFormProps) {
           <DateTimePicker style={styles.datePicker} value={newDate} onChange={onDateChange}/>
          </View>
 
-        <View           
+        <View  
+          testID="count-input-view"         
           style={styles.inputContainer}
         >
          <Text style={{...styles.inputLabel, color: color}}>
@@ -139,12 +141,13 @@ export default function DataForm(props: DataFormProps) {
 
          <View 
           style={styles.inputContainer}
+          testID="notes-input-view"
          >
          <Text style={{...styles.inputLabel, color: color}}>
           Notes
          </Text>
          <TextInput
-          placeholder="Really glad I did it! Feeling great."
+            placeholder="Really glad I did it! Feeling great."
             style={styles.textAreaInput}
            onChangeText={handleChange('notes')}
            onBlur={() => {handleBlur('notes'); Keyboard.dismiss()}}
@@ -157,6 +160,7 @@ export default function DataForm(props: DataFormProps) {
          </View>
          
         <View 
+          testID="hashtags-input-view"
           style={styles.inputContainer}
          >
          <Text style={{...styles.inputLabel, color: color}}>

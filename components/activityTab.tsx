@@ -8,7 +8,7 @@ import DataForm from "./dataform";
 import { useRef, useState } from "react";
 import * as Animatable from 'react-native-animatable';
 
-type ActivityTabProps = {
+export type ActivityTabProps = {
   activity: ActivityType
   addData: {activity: string, instance: string}|null
   showForm: boolean
@@ -39,8 +39,9 @@ export default function ActivityTab(props: ActivityTabProps) {
 
 
   return (
-    <View style={ activity.id === addData?.activity && showForm === true ? {...styles.activityLarge} : {...styles.activitySimple, }}>
+    <View testID="activity-tab-view" style={ activity.id === addData?.activity && showForm === true ? {...styles.activityLarge} : {...styles.activitySimple, }}>
         <Link 
+        testID="activity-link"
         asChild
         style={{width: "100%"}}
         href={{
@@ -68,7 +69,7 @@ export default function ActivityTab(props: ActivityTabProps) {
         duration={4000}
         iterationCount={1}
         >
-          <TouchableOpacity style={styles.activityButton} onPress={() => setShowForm(!showForm)} >
+          <TouchableOpacity testID="edit-btn" style={styles.activityButton} onPress={() => setShowForm(!showForm)} >
             <Feather size={20} name='edit' color={activity.color} />
           </TouchableOpacity>
           </Animatable.View>
@@ -79,7 +80,7 @@ export default function ActivityTab(props: ActivityTabProps) {
         duration={800}
         iterationCount={1}
         >
-      <TouchableOpacity style={styles.activityButton} onPress={() => {handleClick(activity.id); handleAnimation()}} > 
+      <TouchableOpacity testID="check-btn" style={styles.activityButton} onPress={() => { handleClick(activity.id); handleAnimation()}} > 
       
         <Feather size={20} name='check' color={activity.color} />
         

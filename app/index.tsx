@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Link } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { Button, StyleSheet, Text, View, TouchableOpacity, AccessibilityInfo } from 'react-native';
+import { Button, StyleSheet, Text, View, Platform, TouchableOpacity, AccessibilityInfo } from 'react-native';
 import uuid from 'react-native-uuid'
 import DataForm from '../components/dataform';
 import { DateTime } from "luxon"
@@ -13,6 +13,7 @@ import IndexOverview from '../components/indexOverview';
 import ActivityTab from '../components/activityTab';
 import { Image } from 'expo-image';
 import * as Animatable from 'react-native-animatable';
+import * as Haptics from 'expo-haptics'
 
 
 /* Lets do this */
@@ -66,6 +67,8 @@ export default function App() {
     // Set time to 00:00 (midnight)
     let instanceId = String(uuid.v1())
 
+    
+
     if (activity) {
       activity.instances = [...activity.instances, {
         date: String(currentDate),
@@ -78,6 +81,7 @@ export default function App() {
         await AsyncStorage.setItem('my-data', JSON.stringify(newData));
         getData()
         setAddData({activity: activity.id, instance: instanceId})
+        Haptics.notificationAsync()
       } catch (e) {
         alert("Error")
       }

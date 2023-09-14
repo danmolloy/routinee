@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ScrollView } from "react-native-gesture-handler";
 import CalendarPicker from "../components/calendar";
 import { DateTime } from 'luxon';
-import { useFonts, Raleway_700Bold, Raleway_500Medium, Raleway_400Regular } from '@expo-google-fonts/raleway';
+import { useFonts, Raleway_600SemiBold, Raleway_700Bold, Raleway_500Medium, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import DayOverview from "../components/dayOverview";
 import { Feather } from "@expo/vector-icons";
 import InvertibleScrollView from 'react-native-invertible-scroll-view';
@@ -51,6 +51,7 @@ export default function Activity() {
   
   let [fontsLoaded, fontError] = useFonts({
     Raleway_700Bold,
+    Raleway_600SemiBold,
     Raleway_500Medium,
     Raleway_400Regular
   });
@@ -143,6 +144,7 @@ export default function Activity() {
       styleObj.backgroundColor = palette ? palette.light : data?.color
     } else {
       styleObj.backgroundColor = "rgb(229 229 229)"
+
       /* The code below is for screenshot purposes */
       /* let randInt = Math.floor(Math.random() * 4)
       randInt === 0 
@@ -154,6 +156,7 @@ export default function Activity() {
       : palette && randInt === 3
       ? styleObj.backgroundColor = palette.darkest
       :styleObj.backgroundColor = "rgb(229 229 229)"  */
+      
     }
 
     return styleObj

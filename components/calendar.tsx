@@ -30,7 +30,7 @@ export default function CalendarPicker(props: CalendarPickerProps) {
   }
 
   return (
-    <View>
+    <View testID='calendar-picker-view'>
       <Calendar
       onDayPress={day => {
         setSelected(day.dateString);
