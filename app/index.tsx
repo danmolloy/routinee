@@ -50,10 +50,9 @@ export default function App() {
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('my-data');
-      console.log(jsonValue)
       return jsonValue != null ? setData(JSON.parse(jsonValue)) : null;
     } catch (e) {
-      alert(e)
+      console.log(e)
     }
   }
 
@@ -95,7 +94,7 @@ export default function App() {
 
 
   return (
-    <ScrollView style={styles.scrollContainer}>
+    <ScrollView style={styles.scrollContainer} testID='app-view'>
       <Animatable.View 
     animation={"fadeIn"}
     duration={500}
@@ -110,7 +109,7 @@ export default function App() {
     <View style={styles.container} >
       
       {data.length > 0 
-      ? <View style={styles.activitesContainer}>
+      ? <View testID="activities-container" style={styles.activitesContainer}>
         {data.map(i => (
         <View key={i.id} style={{width: "100%", marginVertical: 8, borderRadius: 8,  flex: 1, alignItems: "center",    shadowColor: 'rgb(30 64 175)',
         shadowOffset: { width: 0, height: 1 },
@@ -142,10 +141,10 @@ export default function App() {
       }
       <StatusBar style="auto" />
       {data.length > 0  && 
-      <View style={styles.overViewContainer}>
+      <View testID='overview-container' style={styles.overViewContainer}>
         <View style={styles.overviewHeadContainer}>
         <Text style={styles.overviewTitle}>Overview</Text>
-        <Image style={{...styles.image, alignSelf: "center"}} source={require('../assets/character.png')}/>
+        <Image testID='mr-tasktrek' style={{...styles.image, alignSelf: "center"}} source={require('../assets/character.png')}/>
         </View>
       <IndexOverview data={data}/>
       </View>

@@ -7,7 +7,7 @@ import * as Animatable from 'react-native-animatable';
 import { Image } from "expo-image"
 
 
-const helpArr = [
+export const helpArr = [
   {
     header: "Create Activity",
     info: [
@@ -78,12 +78,12 @@ export default function HelpCenter() {
 
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView testID="help-view" style={styles.container}>
        <Animatable.View 
     animation={"fadeIn"}
     duration={500}
     iterationCount={1}>
-      <Image style={styles.image} source={require('../assets/character.png')}/>
+      <Image testID="mr-task-trek" style={styles.image} source={require('../assets/character.png')}/>
       <Animatable.View 
         animation={fadeInOut}
         duration={500}
@@ -103,13 +103,13 @@ export default function HelpCenter() {
       </View>
       
       <View style={styles.btnContainer}>
-        <TouchableOpacity onPress={() => handlePress("-")} style={styles.navBtn}>
+        <TouchableOpacity testID="back-btn" onPress={() => handlePress("-")} style={styles.navBtn}>
           <Feather size={32} name="chevron-left" color={"#F59E0B"}/>
         </TouchableOpacity>
         <Text style={styles.text}>
           {`${pageIndex + 1} / ${helpArr.length}`}
         </Text>
-        <TouchableOpacity onPress={() => handlePress("+")} style={styles.navBtn}>
+        <TouchableOpacity testID="forward-btn" onPress={() => handlePress("+")} style={styles.navBtn}>
           <Feather size={32} name="chevron-right" color={"#F59E0B"} />
         </TouchableOpacity>
       </View>

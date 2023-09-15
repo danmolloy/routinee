@@ -65,7 +65,7 @@ export default function IndexOverview(props: IndexOverviewProps) {
   }
 
   return (
-    <View style={styles.container}>
+    <View testID='index-overview' style={styles.container}>
       <View>
       <View style={styles.dayHeader}>
         <TouchableOpacity testID='nav-back' style={styles.navigateDayBtn} onPress={() => selectDate("minus")}>
