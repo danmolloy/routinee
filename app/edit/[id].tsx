@@ -7,7 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FieldArray, Formik } from "formik";
 import { ScrollView } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
-import { colorArr } from "../create";
+import { colorArr } from "../../components/createForm";
 import { DateTime } from "luxon";
 
 export default function EditActivity() {

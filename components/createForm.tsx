@@ -3,8 +3,10 @@ import { ScrollView } from "react-native-gesture-handler";
 import * as Animatable from 'react-native-animatable';
 import { Formik } from "formik";
 import uuid from 'react-native-uuid'
-import { colorArr } from "../app/create";
 import { ActivityType } from "../app";
+
+export const colorArr = ["rgb(74 222 128)", "rgb(168 85 247)", "rgb(244 63 94)",  "rgb(34 211 238)", "rgb(99 102 241)", "rgb(244 114 182)", "rgb(245 158 11)"]
+
 
 export type CreateFormProps = {
   handleCreate: (activity: ActivityType) => void
@@ -46,6 +48,7 @@ export default function CreateForm(props: CreateFormProps) {
           testID="activity-input"
           placeholder="Exercise"
           style={styles.textInput}
+          maxLength={15}
           onChangeText={handleChange('name')}
           onBlur={handleBlur('name')}
           value={values.name}

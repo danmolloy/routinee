@@ -8,8 +8,8 @@ import { ActivityType } from ".";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import * as Animatable from 'react-native-animatable';
 import CreateForm from "../components/createForm";
-
-export const colorArr = ["rgb(74 222 128)", "rgb(168 85 247)", "rgb(244 63 94)",  "rgb(34 211 238)", "rgb(99 102 241)", "rgb(244 114 182)", "rgb(245 158 11)"]
+import { colorArr } from "../components/createForm";
+//export const colorArr = ["rgb(74 222 128)", "rgb(168 85 247)", "rgb(244 63 94)",  "rgb(34 211 238)", "rgb(99 102 241)", "rgb(244 114 182)", "rgb(245 158 11)"]
 
 
 export const colorPalettes: {

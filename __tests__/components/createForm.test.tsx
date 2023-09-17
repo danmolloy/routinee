@@ -1,9 +1,9 @@
 import React from "react";
 import { render, screen, fireEvent, act, waitFor } from '@testing-library/react-native';
 import '@testing-library/jest-dom/';
-import { colorArr } from "../../app/create";
 import CreateForm, { CreateFormProps } from "../../components/createForm";
 import uuid from 'react-native-uuid'
+import { colorArr } from "../../components/createForm";
 
 const mockProps: CreateFormProps = {
   handleCreate: jest.fn(),

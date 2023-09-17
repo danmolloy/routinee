@@ -7,6 +7,7 @@ import { Feather } from "@expo/vector-icons";
 import DataForm from "./dataform";
 import { useRef, useState } from "react";
 import * as Animatable from 'react-native-animatable';
+import { Emitter } from "react-native-particles";
 
 export type ActivityTabProps = {
   activity: ActivityType
@@ -27,13 +28,18 @@ export type ActivityTabProps = {
 export default function ActivityTab(props: ActivityTabProps) {
   const { activity, addData, showForm, setShowForm, getData, data, setAddData, handleClick, } = props;
   const [animation, setAnimation] = useState(false)
+  const [sparkles, setSparkles] = useState(false)
 
 
   const handleAnimation = () => {
     setAnimation(true)
+    setSparkles(true)
     setTimeout(() => {
       setAnimation(false);
     }, 300);
+    setTimeout(() => {
+      setSparkles(false);
+    }, 2000);
 
   }
 
@@ -60,6 +66,7 @@ export default function ActivityTab(props: ActivityTabProps) {
         ? <Text style={{fontSize: 14, fontFamily:"Raleway_500Medium"}}>Last instance: Today</Text>
         : <Text style={{fontSize: 14, fontFamily:"Raleway_500Medium"}}>Last instance: {String(DateTime.fromISO(activity.instances.sort((a, b) => a.date.localeCompare(b.date))[activity.instances.length - 1].date).toFormat('dd LLL yyyy'))}</Text>}
         </View>
+        
         <View style={styles.buttonsContainer}>
           {activity.id === addData?.activity
           && 
@@ -83,9 +90,22 @@ export default function ActivityTab(props: ActivityTabProps) {
       <TouchableOpacity testID="check-btn" style={styles.activityButton} onPress={() => { handleClick(activity.id); handleAnimation()}} > 
       
         <Feather size={20} name='check' color={activity.color} />
-        
+       {sparkles && <View style={{top: -16, left: -6}}>
+      <Emitter
+        numberOfParticles={6}
+        emissionRate={6}
+        interval={200}
+        particleLife={1500}
+        direction={-30}
+        spread={360}
+      >
+                    <Feather size={12} name='star' color={activity.color} />
+
+      </Emitter>
+      </View>}
       </TouchableOpacity>
       </Animatable.View>
+      
       </View>
       </TouchableOpacity>
       </Link>
