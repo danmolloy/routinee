@@ -41,7 +41,7 @@ export default function IndexOverview(props: IndexOverviewProps) {
       weekArr[i] = {
         date: formattedDate,
         squareColor: instancesBool ? data.color : "white" 
-        //squareColor: Math.random() > 0.2 ? data.color : "white" // Screenshot purposes only
+        //squareColor: Math.random() > 0.15 ? data.color : "white" // Screenshot purposes only
       }
     }
     return weekArr;

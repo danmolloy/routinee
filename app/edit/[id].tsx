@@ -127,28 +127,28 @@ export default function EditActivity() {
           : values.instances.reverse().map((i, index) => (
             <View style={styles.instanceView} key={i.id}>
               <View style={styles.instanceHeader}>
-              <Text key={i.id} style={{fontFamily: "Raleway_600SemiBold", fontSize: 18}}>
+              <Text style={{fontFamily: "Raleway_600SemiBold", fontSize: 18}}>
                 {DateTime.fromJSDate(new Date(i.date)).toFormat("EEEE dd LLL yyyy")}
               </Text>
               <TouchableOpacity onPress={() => remove(index)} style={{ padding: 4}}>
               <Feather size={18} style={{color: "rgb(239 68 68)"}} name="trash-2" />
               </TouchableOpacity>
               </View>
-              {i.count && <Text key={i.id} style={styles.instanceText}>
+              {i.count && <Text style={styles.instanceText}>
                 Count: {i.count}
               </Text>}
-              {i.hashtags && <Text key={i.id} style={styles.instanceText}>
+              {i.hashtags && <Text style={styles.instanceText}>
                 {i.hashtags.map(i => (
                   <Text key={i}>
                     #{i}
                   </Text>
                 ))}
               </Text>}
-              {i.notes && <Text key={i.id} style={styles.instanceText}>
+              {i.notes && <Text style={styles.instanceText}>
                 Notes: {i.notes}
               </Text>}
               {!i.count && !i.hashtags && !i.notes 
-              && <Text key={i.id} style={{...styles.instanceText, color: "gray"}}>
+              && <Text style={{...styles.instanceText, color: "gray"}}>
               No data
             </Text>}
             </View>
