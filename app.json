@@ -2,7 +2,7 @@
   "expo": {
     "name": "TaskTrek",
     "slug": "habit",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -17,8 +17,8 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.danmolloy.habit",
-      "runtimeVersion": "12",
-      "buildNumber": "12"
+      "runtimeVersion": "13",
+      "buildNumber": "13"
     },
     "android": {
       "adaptiveIcon": {
