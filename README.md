@@ -1,14 +1,12 @@
 # TaskTrek
-
 ## Overview
-Track your habits, daily tasks and regular todos. TaskTrek keeps a log on your progress and helps you achieve your goals.
+This is a habit tracking mobile app. It features an attractive UI/UX, CRUD database operations and engaging data visualization. It is currently available on the app store.
 
 ## Features 
-There are some tasks you want to do at regular intervals - this could be exercising, meditating or feeding your pet.
-
-TaskTrek keeps a log of these habits. Tick off an activity and log its data - how long you did it for, how you felt about it. You can also add hashtags, which can be used to filter you instances of the activity and see an overall pattern of your activity.
-
-TaskTrek features an intuitive, animated UX and a GitHub-style heat chart.
+- **Data Visualization** View your activity in a GitHub-style activity heat chart.
+- **Seamless Data Management** Create, read, update, and delete habits with ease.
+- **Hashtag Filtering** Organize and filter your habits using hashtags for easy management.
+- **Interactive UI** Playful hapnics and star bursts when a user logs an activity.
 
 ## Stack
 - React Native
@@ -16,3 +14,9 @@ TaskTrek features an intuitive, animated UX and a GitHub-style heat chart.
 - TypeScript
 - Formik
 - Jest
+
+## Testing
+Unit tests with Jest and React Testing Library achieve a high code coverage threshold, focusing on database interaction, maintaining a consistent UI and critical logic. An array of Jest matchers (e.g., .toBe, .toEqual, .toBeInTheDocument) are leveraged for effective assertions. Predictable UI output is maintained with snapshot tests for all components. Test suites are regularly reviewed to ensure failures are swiftly captured, and the site continues to be manually tested across a variety of screen sizes.
+
+## Credits
+The entire project is designed and built by Daniel Molloy.
